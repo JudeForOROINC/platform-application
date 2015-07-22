@@ -1,0 +1,2 @@
+bundles:
+    - Magecore\Bundle\TestTaskOroBundle\MagecoreTestTaskOroBundle

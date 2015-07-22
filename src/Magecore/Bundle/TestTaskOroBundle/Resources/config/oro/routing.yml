@@ -1,0 +1,4 @@
+magecore_testtaskoro:
+    resource: "@MagecoreTestTaskOroBundle/Controller"
+    type: annotation
+    prefix: /

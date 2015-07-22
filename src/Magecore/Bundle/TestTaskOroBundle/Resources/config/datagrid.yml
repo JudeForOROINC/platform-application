@@ -1,0 +1,68 @@
+datagrid:
+    issues-grid:
+        source:
+            acl_resource: testtaskoro.issue_view
+            type: orm
+            query:
+                select:
+                    - v.id
+                    - v.summary
+                    - v.code
+                    - v.created
+
+                from:
+                    - { table: MagecoreTestTaskOroBundle:Issue, alias: v }
+        columns:
+            summary:
+                label: Model
+            code:
+                label: '# Seats'
+            createAt:
+                label: Bought at
+                frontend_type: date
+        properties:
+            id: ~
+            update_link:
+                type: url
+                route: inventory.vehicle_update
+                params:
+                    - id
+            view_link:
+                type: url
+                route: inventory.vehicle_view
+                params:
+                    - id
+            delete_link:
+                type: url
+                route: inventory_api_delete_vehicle
+                params:
+                    - id
+        sorters:
+            columns:
+                summary:
+                    data_name: v.summary
+                code:
+                    data_name: v.code
+                createAt:
+                    data_name: v.created
+            default:
+                createAt: ASC
+        filters:
+            columns:
+                model:
+                    type: string
+                    data_name: v.model
+                seats:
+                    type: number
+                    data_name: v.seats
+                boughtAt:
+                    type: date
+                    data_name: v.created
+        actions:
+            view:
+                type:          navigate
+                label:         View
+                link:          view_link
+                icon:          eye-open
+                acl_resource:  inventory.vehicle_view
+                rowAction:     true

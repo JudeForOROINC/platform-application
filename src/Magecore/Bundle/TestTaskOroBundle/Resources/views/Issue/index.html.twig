@@ -1,0 +1,15 @@
+{% extends 'OroUIBundle:actions:index.html.twig' %}
+{% import 'OroUIBundle::macros.html.twig' as UI %}
+{% set gridName = 'issues-grid' %}
+{% set pageTitle = 'Issues'|trans %}
+
+{% block navButtons %}
+    {% if resource_granted('testtaskoro.issue_view') %}
+        <div class="btn-group">
+            {{ UI.addButton({
+                'path': path('magecore_testtaskoro_issue'),
+                'entity_label': 'Issues'|trans
+            }) }}
+        </div>
+    {% endif %}
+{% endblock %}
