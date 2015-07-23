@@ -45,6 +45,8 @@ use Oro\Bundle\UserBundle\Model\ExtendUser;
  * @ORM\Entity()
  * @ORM\Table(name="magecore_testtaskoro_issue")
  * @ORM\HasLifecycleCallbacks()
+ * @Config(
+ * )
  * @JMS\ExclusionPolicy("ALL")
  */
 class Issue extends ExtendUser
