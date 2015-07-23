@@ -105,6 +105,6 @@ class IssueType extends AbstractType
      */
     public function getName()
     {
-        return 'magecore_bundle_testtaskbundle_issue';
+        return 'magecore_testtaskoro_issue';
     }
 }

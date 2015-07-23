@@ -8,6 +8,8 @@
 // src/InventoryBundle/Controller/VehicleController.php
 namespace Magecore\Bundle\TestTaskOroBundle\Controller;
 
+use Magecore\Bundle\TestTaskOroBundle\Entity\Issue;
+use Magecore\Bundle\TestTaskOroBundle\Form\Type\IssueType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,57 +36,57 @@ class IssueController extends Controller
         return array('entity_class'=>'MagecoreTestTaskOroBundle\Entity\Issue');
     }
     /**
-     * @Route("/create", name="inventory.vehicle_create")
-     * @Template("InventoryBundle:Vehicle:update.html.twig")
+     * @Route("/create", name="magecore_testtaskoro.issue_create")
+     * @Template("MagecoreTestTaskOroBundle:Issue:update.html.twig")
      * @Acl(
-     *     id="inventory.vehicle_create",
+     *     id="magecore_testtaskoro.issue_create",
      *     type="entity",
-     *     class="InventoryBundle:Vehicle",
+     *     class="MagecoreTestTaskOroBundle:Issue",
      *     permission="CREATE"
      * )
      */
     public function createAction(Request $request)
     {
-        return $this->update(new Vehicle(), $request);
+        return $this->update(new Issue(), $request);
     }
 
     /**
-     * @Route("/update/{id}", name="inventory.vehicle_update", requirements={"id":"\d+"}, defaults={"id":0})
+     * @Route("/update/{id}", name="magecore_testtastoro.issue_update", requirements={"id":"\d+"}, defaults={"id":0})
      * @Template()
      * @Acl(
-     *     id="inventory.vehicle_update",
+     *     id="magecore_testtastoro.issue_update",
      *     type="entity",
-     *     class="InventoryBundle:Vehicle",
+     *     class="MagecoreTestTaskOroBundle:Issue",
      *     permission="EDIT"
      * )
      */
-    public function updateAction(Vehicle $vehicle, Request $request)
+    public function updateAction(Issue $issue, Request $request)
     {
-        return $this->update($vehicle, $request);
+        return $this->update($issue, $request);
     }
 
-    private function update(Vehicle $vehicle, Request $request)
+    private function update(Issue $issue, Request $request)
     {
-        $form = $this->get('form.factory')->create('inventory_vehicle', $vehicle);
+        $form = $this->get('form.factory')->create('magecore_testtaskoro_issue', $issue);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($vehicle);
+            $entityManager->persist($issue);
             $entityManager->flush();
 
             return $this->get('oro_ui.router')->redirectAfterSave(
                 array(
-                    'route' => 'inventory.vehicle_update',
-                    'parameters' => array('id' => $vehicle->getId()),
+                    'route' => 'magecore_testtastoro.issue_update',
+                    'parameters' => array('id' => $issue->getId()),
                 ),
                 array('route' => 'inventory.vehicle_index'),
-                $vehicle
+                $issue
             );
         }
 
         return array(
-            'entity' => $vehicle,
+            'entity' => $issue,
             'form' => $form->createView(),
         );
     }

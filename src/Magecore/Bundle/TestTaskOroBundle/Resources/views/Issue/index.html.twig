@@ -7,7 +7,7 @@
     {% if resource_granted('testtaskoro.issue_view') %}
         <div class="btn-group">
             {{ UI.addButton({
-                'path': path('magecore_testtaskoro_issue'),
+                'path': path('magecore_testtaskoro.issue_create'),
                 'entity_label': 'Issues'|trans
             }) }}
         </div>
