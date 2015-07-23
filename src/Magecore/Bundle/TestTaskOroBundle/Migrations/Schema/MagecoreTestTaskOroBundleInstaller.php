@@ -43,9 +43,6 @@ class MagecoreTestTaskOroBundleInstaller implements Installation
         $table->addColumn('id', 'integer', ['autoincrement' => true]);
         $table->addColumn('parent_issue_id', 'integer', ['notnull' => false]);
         $table->addColumn('user_owner_id', 'integer', ['notnull' => false]);
-        $table->addColumn('phone', 'string', ['notnull' => false, 'length' => 255]);
-        $table->addColumn('title', 'string', ['notnull' => false, 'length' => 255]);
-        $table->addColumn('googleId', 'string', ['notnull' => false, 'length' => 255]);
         $table->addColumn('summary', 'string', ['length' => 255]);
         $table->addColumn('code', 'string', ['length' => 10]);
         $table->addColumn('description', 'text', []);
@@ -55,7 +52,7 @@ class MagecoreTestTaskOroBundleInstaller implements Installation
         $table->setPrimaryKey(['id']);
         $table->addUniqueIndex(['code'], 'UNIQ_CF2A577B77153098');
         $table->addIndex(['user_owner_id'], 'IDX_CF2A577B9EB185F9', []);
-        $table->addIndex(['parent_issue_id'], 'IDX_CF2A577BC1B7095D', []);
+//        $table->addIndex(['parent_issue_id'], 'IDX_CF2A577BC1B7095D', []);
     }
 
     /**
@@ -66,12 +63,12 @@ class MagecoreTestTaskOroBundleInstaller implements Installation
     protected function addMagecoreTesttaskoroIssueForeignKeys(Schema $schema)
     {
         $table = $schema->getTable('magecore_testtaskoro_issue');
-        $table->addForeignKeyConstraint(
-            $schema->getTable('magecore_testtaskoro_issue'),
-            ['parent_issue_id'],
-            ['id'],
-            ['onDelete' => 'CASCADE', 'onUpdate' => null]
-        );
+//        $table->addForeignKeyConstraint(
+//            $schema->getTable('magecore_testtaskoro_issue'),
+//            ['parent_issue_id'],
+//            ['id'],
+//            ['onDelete' => 'CASCADE', 'onUpdate' => null]
+//        );
         $table->addForeignKeyConstraint(
             $schema->getTable('oro_user'),
             ['user_owner_id'],

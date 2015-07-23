@@ -2,6 +2,7 @@
 
 namespace Magecore\Bundle\TestTaskOroBundle\Entity;
 
+use Magecore\Bundle\TestTaskOroBundle\Model\ExtendIssue;
 use Oro\Bundle\UserBundle\Entity\User;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
@@ -49,7 +50,7 @@ use Oro\Bundle\UserBundle\Model\ExtendUser;
  * )
  * @JMS\ExclusionPolicy("ALL")
  */
-class Issue extends ExtendUser
+class Issue extends ExtendIssue
 {
     const ROLE_DEFAULT = 'ROLE_USER';
     const ROLE_ADMINISTRATOR = 'ROLE_ADMINISTRATOR';
@@ -198,17 +199,17 @@ class Issue extends ExtendUser
      */
     private $updated;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Issue", mappedBy="parentIssue")
-     */
-    protected $children;
+//    /**
+//     * @ORM\OneToMany(targetEntity="Issue", mappedBy="parentIssue")
+//     */
+//    protected $children;
 
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Issue", inversedBy="children", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="parent_issue_id", referencedColumnName="id", onDelete="CASCADE")
-     */
-    private $parentIssue;
+//    /**
+//     * @ORM\ManyToOne(targetEntity="Issue", inversedBy="children", cascade={"persist", "remove"})
+//     * @ORM\JoinColumn(name="parent_issue_id", referencedColumnName="id", onDelete="CASCADE")
+//     */
+//    private $parentIssue;
 
 
     const ISSUE_TYPE_STORY = 'Story';
@@ -472,10 +473,10 @@ class Issue extends ExtendUser
      */
     public function __construct()
     {
-        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->collaborators = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->activities = new \Doctrine\Common\Collections\ArrayCollection();
+      //  $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+       // $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+       // $this->collaborators = new \Doctrine\Common\Collections\ArrayCollection();
+       // $this->activities = new \Doctrine\Common\Collections\ArrayCollection();
         //$this->created = new
         $this->created = new \DateTime();
         $this->updated = new \DateTime();
