@@ -80,7 +80,7 @@ class IssueController extends Controller
                     'route' => 'magecore_testtastoro.issue_update',
                     'parameters' => array('id' => $issue->getId()),
                 ),
-                array('route' => 'inventory.vehicle_index'),
+                array('route' => 'magecore_testtaskoro_issue'),
                 $issue
             );
         }

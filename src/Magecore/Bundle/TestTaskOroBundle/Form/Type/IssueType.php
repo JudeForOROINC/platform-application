@@ -51,20 +51,20 @@ class IssueType extends AbstractType
 //
 //        }
 
-//        if (isset($options['data'])) {
-//            if (get_class($options['data']) == 'Magecore\Bundle\TestTaskBundle\Entity\Issue') {
-//                if ($options['data']->getId() == 0) {
+        if (isset($options['data'])) {
+            if (get_class($options['data']) == 'Magecore\Bundle\TestTaskOroBundle\Entity\Issue') {
+                if ($options['data']->getId() == 0) {
 //                    if (!empty($options['data']->getParentIssue())) {
 //                        //do nothing.
 //                        $arr = null;
 //                    } else {
-//                        $arr = $options['data']->getParentTypes();
-//                        $arr = array_combine($arr, $arr);
+                        $arr = $options['data']->getParentTypes();
+                        $arr = array_combine($arr, $arr);
 //                    }
-//                }
-//            }
-//
-//        }
+                }
+            }
+
+        }
 
         if (!empty($arr)) {
             $builder->add('type', 'choice', array(

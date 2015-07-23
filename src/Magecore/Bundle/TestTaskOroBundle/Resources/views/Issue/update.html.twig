@@ -21,19 +21,19 @@
         {% if form.vars.value.id %}
         {% set breadcrumbs = {
         'entity':      form.vars.value,
-        'indexPath':   path('inventory.vehicle_index'),
-        'indexLabel': 'Vehicles'|trans,
+        'indexPath':   path('magecore_testtaskoro_issue'),
+        'indexLabel': 'Issues'|trans,
         'entityTitle': form.vars.value.model
     } %}
         {{ parent() }}
     {% else %}
-    {% set title = 'oro.ui.create_entity'|trans({'%entityName%': 'Vehicle'|trans}) %}
+    {% set title = 'oro.ui.create_entity'|trans({'%entityName%': 'Issues'|trans}) %}
     {% include 'OroUIBundle::page_title_block.html.twig' with { title: title } %}
     {% endif %}
     {% endblock pageHeader %}
 
     {% block content_data %}
-    {% set id = 'vehicle-edit' %}
+    {% set id = 'issue-edit' %}
 
     {% set dataBlocks = [{
         'title': 'General'|trans,

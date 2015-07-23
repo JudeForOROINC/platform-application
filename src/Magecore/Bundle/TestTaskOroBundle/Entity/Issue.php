@@ -683,4 +683,11 @@ class Issue extends ExtendIssue
 //    {
 //        return $this->activities;
 //    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function PrePersist() {
+        $this->code = "ISS-".$this->getId();
+    }
 }
