@@ -24,12 +24,12 @@ datagrid:
             id: ~
             update_link:
                 type: url
-                route: inventory.vehicle_update
+                route: magecore_testtastoro.issue_update
                 params:
                     - id
             view_link:
                 type: url
-                route: inventory.vehicle_view
+                route: magecore_testtastoro.issue_update
                 params:
                     - id
             delete_link:

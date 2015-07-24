@@ -688,6 +688,12 @@ class Issue extends ExtendIssue
      * @ORM\PrePersist
      */
     public function PrePersist() {
+        $this->code = "ISS-".time().rand();
+    }
+    /**
+     * @ORM\PostPersist
+     */
+    public function PostPersist() {
         $this->code = "ISS-".$this->getId();
     }
 }
