@@ -3,13 +3,13 @@
 {% form_theme form with 'OroFormBundle:Form:fields.html.twig' %}
 
 {% if form.vars.value.id %}
-    {% set formAction = path('magecore_testtastoro.issue_update', { 'id': form.vars.value.id }) %}
+    {% set formAction = path('magecore_testtaskoro.issue_update', { 'id': form.vars.value.id }) %}
 {% else %}
     {% set formAction = path('magecore_testtaskoro.issue_create') %}
 {% endif %}
 
 {% block navButtons %}
-    {{ UI.cancelButton(path('magecore_testtaskoro.issue_create')) }}
+    {{ UI.cancelButton(path('magecore_testtaskoro_issue')) }}
     {% set html = UI.saveAndCloseButton() %}
     {% if resource_granted('magecore_testtastoro.issue_update') %}
         {% set html = html ~ UI.saveAndStayButton() %}
