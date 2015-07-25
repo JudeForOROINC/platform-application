@@ -60,12 +60,12 @@ datagrid:
                     data_name: v.createdAt
         actions:
             view:
-                type:          navigate
-                label:         View
-                link:          view_link
-                icon:          eye-open
-                acl_resource:  magecore_testtaskoro.issue_view
-                rowAction:     true
+                type:         navigate
+                acl_resource: magecore_testtaskoro.issue_view
+                label:        oro.grid.action.view
+                icon:         eye-open
+                link:         view_link
+                rowAction:    true
             update:
                 type:         navigate
                 acl_resource: magecore_testtaskoro.issue_update

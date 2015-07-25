@@ -36,6 +36,7 @@ class IssueController extends Controller
     public function indexAction(){
         return array('entity_class'=>'MagecoreTestTaskOroBundle\Entity\Issue');
     }
+
     /**
      * @Route("/create", name="magecore_testtaskoro.issue_create")
      * @Template("MagecoreTestTaskOroBundle:Issue:update.html.twig")
@@ -55,7 +56,7 @@ class IssueController extends Controller
      * @Route("/update/{id}", name="magecore_testtaskoro.issue_update", requirements={"id":"\d+"}, defaults={"id":0})
      * @Template()
      * @Acl(
-     *     id="magecore_testtastoro.issue_update",
+     *     id="magecore_testtaskoro.issue_update",
      *     type="entity",
      *     class="MagecoreTestTaskOroBundle:Issue",
      *     permission="EDIT"
