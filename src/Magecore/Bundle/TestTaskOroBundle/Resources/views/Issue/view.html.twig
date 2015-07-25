@@ -3,21 +3,21 @@
 {% import 'OroUIBundle::macros.html.twig' as UI %}
 
 {% block navButtons %}
-    {% if resource_granted('EDIT', vehicle) %}
+    {% if resource_granted('EDIT', entity) %}
         {{ UI.editButton({
-            'path' : path('inventory.vehicle_update', { id: vehicle.id }),
-            'entity_label': 'Vehicle'|trans
+            'path' : path('magecore_testtaskoro.issue_update', { id: entity.id }),
+            'entity_label': 'Issues'|trans
         }) }}
     {% endif %}
 
     {% if resource_granted('DELETE', vehicle) %}
         {{ UI.deleteButton({
-            'dataUrl': path('inventory_api_delete_vehicle', {'id': vehicle.id}),
-            'dataRedirect': path('inventory.vehicle_index'),
+            'dataUrl': path('magecore_testtaskoro_api_delete_issue', {'id': entity.id}),
+            'dataRedirect': path('magecore_testtaskoro_issue'),
             'aCss': 'no-hash remove-button',
             'id': 'btn-remove-vehicle',
-            'dataId': vehicle.id,
-            'entity_label': 'Vehicle'|trans,
+            'dataId': entity.id,
+            'entity_label': 'Issues'|trans,
         }) }}
     {% endif %}
 {% endblock navButtons %}
@@ -25,9 +25,9 @@
 {% block pageHeader %}
     {% set breadcrumbs = {
     'entity':      vehicle,
-    'indexPath':   path('inventory.vehicle_index'),
-    'indexLabel': 'Vehicles'|trans,
-    'entityTitle': vehicle.model
+    'indexPath':   path('magecore_testtaskoro_issue'),
+    'indexLabel': 'Issues'|trans,
+    'entityTitle': entity.code
     } %}
     {{ parent() }}
 {% endblock pageHeader %}
@@ -37,10 +37,10 @@
     <div class="widget-content">
         <div class="row-fluid form-horizontal">
             <div class="responsive-block">
-                {{ UI.renderProperty('Model'|trans, vehicle.model) }}
-                {{ UI.renderProperty('Seats'|trans, vehicle.seats) }}
-                {{ UI.renderProperty('Bought at'|trans, vehicle.boughtAt|date) }}
-                {{ UI.renderProperty('Leased until'|trans, vehicle.leasedUntil|date) }}
+                {{ UI.renderProperty('Model'|trans, entity.summary) }}
+                {{ UI.renderProperty('Seats'|trans, entity.code) }}
+                {{ UI.renderProperty('Bought at'|trans, entity.createdAt|date) }}
+
             </div>
         </div>
     </div>
