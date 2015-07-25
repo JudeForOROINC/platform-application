@@ -51,7 +51,7 @@ class IssueController extends Controller
     }
 
     /**
-     * @Route("/update/{id}", name="magecore_testtastoro.issue_update", requirements={"id":"\d+"}, defaults={"id":0})
+     * @Route("/update/{id}", name="magecore_testtaskoro.issue_update", requirements={"id":"\d+"}, defaults={"id":0})
      * @Template()
      * @Acl(
      *     id="magecore_testtastoro.issue_update",
@@ -77,7 +77,7 @@ class IssueController extends Controller
 
             return $this->get('oro_ui.router')->redirectAfterSave(
                 array(
-                    'route' => 'magecore_testtastoro.issue_update',
+                    'route' => 'magecore_testtaskoro.issue_update',
                     'parameters' => array('id' => $issue->getId()),
                 ),
                 array('route' => 'magecore_testtaskoro_issue'),
@@ -90,6 +90,17 @@ class IssueController extends Controller
             'form' => $form->createView(),
         );
     }
+
+    /**
+     * @Route("/{id}", name="magecore_testtaskoro.issue_view", requirements={"id"="\d+"})
+     * @Template
+     * @AclAncestor("magecore_testtaskoro.issue_view")
+     */
+    public function viewAction(Issue $issue)
+    {
+        return array('entity' => $issue);
+    }
+
 
 
 }

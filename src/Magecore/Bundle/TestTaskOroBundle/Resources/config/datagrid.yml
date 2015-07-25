@@ -24,12 +24,12 @@ datagrid:
             id: ~
             update_link:
                 type: url
-                route: magecore_testtastoro.issue_update
+                route: magecore_testtaskoro.issue_update
                 params:
                     - id
             view_link:
                 type: url
-                route: magecore_testtastoro.issue_update
+                route: magecore_testtaskoro.issue_view
                 params:
                     - id
             delete_link:

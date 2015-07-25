@@ -2,6 +2,8 @@
 
 namespace Magecore\Bundle\TestTaskOroBundle\Entity;
 
+use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+use Doctrine\ORM\EntityManager;
 use Magecore\Bundle\TestTaskOroBundle\Model\ExtendIssue;
 use Oro\Bundle\UserBundle\Entity\User;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
@@ -155,6 +157,14 @@ class Issue extends ExtendIssue
      * @var string
      *
      * @ORM\Column(name="description", type="text")
+     * @Oro\Versioned
+     * @ConfigField(
+     *      defaultValues={
+     *          "dataaudit"={
+     *              "auditable"=true
+     *          }
+     *      }
+     * )
      */
     private $description;
 
@@ -188,16 +198,16 @@ class Issue extends ExtendIssue
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created", type="datetime")
+     * @ORM\Column(name="createdAt", type="datetime")
      */
-    private $created;
+    private $createdAt;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="updated", type="datetime")
+     * @ORM\Column(name="updatedAt", type="datetime")
      */
-    private $updated;
+    private $updatedAt;
 
 //    /**
 //     * @ORM\OneToMany(targetEntity="Issue", mappedBy="parentIssue")
@@ -685,15 +695,83 @@ class Issue extends ExtendIssue
 //    }
 
     /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     * @return Attachment
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     * @return Attachment
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Pre persist event handler
+     *
      * @ORM\PrePersist
      */
-    public function PrePersist() {
-        $this->code = "ISS-".time().rand();
+    public function prePersist()
+    {
+        $this->createdAt = new \DateTime('now', new \DateTimeZone('UTC'));
+        $this->updatedAt = clone $this->createdAt;
     }
+
+    /**
+     * Pre update event handler
+     *
+     * @ORM\PreUpdate
+     */
+    public function preUpdate()
+    {
+        $this->updatedAt = new \DateTime('now', new \DateTimeZone('UTC'));
+    }
+
+
     /**
      * @ORM\PostPersist
      */
-    public function PostPersist() {
+    public function PostPersist(LifecycleEventArgs $args) {
         $this->code = "ISS-".$this->getId();
+        /** @var EntityManager $man */
+        $man = $args->getObjectManager();
+        $unit = $man->getUnitOfWork();
+        $unit->scheduleExtraUpdate($this,array('code'=>array('none',$this->code)));
     }
+
+
 }
