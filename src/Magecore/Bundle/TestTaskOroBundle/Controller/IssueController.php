@@ -96,7 +96,7 @@ class IssueController extends Controller
     /**
      * @Route("/{id}", name="magecore_testtaskoro.issue_view", requirements={"id"="\d+"})
      * @Template
-     * @AclAncestor("magecore_testtaskoro.issue_view")
+     * @AclAncestor("magecore_testtaskoro_issue_view")
      */
     public function viewAction(Issue $issue)
     {

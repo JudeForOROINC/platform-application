@@ -22,14 +22,14 @@ datagrid:
                 frontend_type: date
         properties:
             id: ~
-            update_link:
+            view_link:
                 type: url
                 route: magecore_testtaskoro.issue_update
                 params:
                     - id
-            view_link:
+            update_link:
                 type: url
-                route: magecore_testtaskoro.issue_view
+                route: magecore_testtaskoro.issue_update
                 params:
                     - id
             delete_link:
@@ -61,7 +61,7 @@ datagrid:
         actions:
             view:
                 type:         navigate
-                acl_resource: magecore_testtaskoro.issue_view
+                acl_resource: magecore_testtaskoro.issue_update
                 label:        oro.grid.action.view
                 icon:         eye-open
                 link:         view_link
