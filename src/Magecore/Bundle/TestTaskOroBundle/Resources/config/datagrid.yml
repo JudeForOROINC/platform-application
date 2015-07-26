@@ -24,7 +24,7 @@ datagrid:
             id: ~
             view_link:
                 type: url
-                route: magecore_testtaskoro.issue_update
+                route: magecore_testtaskoro.issue_view
                 params:
                     - id
             update_link:
