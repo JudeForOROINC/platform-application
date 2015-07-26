@@ -115,20 +115,14 @@ class Issue extends ExtendIssue
 
     /**
      * @var User
+     *
      * @ORM\ManyToOne(targetEntity="Oro\Bundle\UserBundle\Entity\User")
-     * @ORM\JoinColumn(name="user_owner_id", referencedColumnName="id", onDelete="SET NULL")
+     * @ORM\JoinColumn(name="reporter_id", referencedColumnName="id", onDelete="SET NULL")
      * @Oro\Versioned
      * @ConfigField(
      *      defaultValues={
-     *          "merge"={
-     *              "display"=true
-     *          },
      *          "dataaudit"={
      *              "auditable"=true
-     *          },
-     *          "importexport"={
-     *              "order"=30,
-     *              "short"=true
      *          }
      *      }
      * )
@@ -137,25 +131,19 @@ class Issue extends ExtendIssue
 
     /**
      * @var User
+     *
      * @ORM\ManyToOne(targetEntity="Oro\Bundle\UserBundle\Entity\User")
-     * @ORM\JoinColumn(name="user_owner_id", referencedColumnName="id", onDelete="SET NULL")
-     * @Oro\Versioned
+     * @ORM\JoinColumn(name="assigned_to_id", referencedColumnName="id", onDelete="SET NULL")
      * @ConfigField(
      *      defaultValues={
-     *          "merge"={
-     *              "display"=true
-     *          },
      *          "dataaudit"={
      *              "auditable"=true
-     *          },
-     *          "importexport"={
-     *              "order"=30,
-     *              "short"=true
      *          }
      *      }
      * )
+     * @Oro\Versioned
      */
-    private $assignee;
+    protected $assignedTo;
 
 
     /**
@@ -436,52 +424,6 @@ class Issue extends ExtendIssue
     }
 
 
-    /**
-     * Set created
-     *
-     * @param \DateTime $created
-     * @return Issue
-     */
-    public function setCreated($created)
-    {
-        $this->created = $created;
-
-        return $this;
-    }
-
-    /**
-     * Get created
-     *
-     * @return \DateTime
-     */
-    public function getCreated()
-    {
-        return $this->created;
-    }
-
-    /**
-     * Set updated
-     *
-     * @param \DateTime $updated
-     * @return Issue
-     */
-    public function setUpdated($updated)
-    {
-        $this->updated = $updated;
-
-        return $this;
-    }
-
-    /**
-     * Get updated
-     *
-     * @return \DateTime
-     */
-    public function getUpdated()
-    {
-        return $this->updated;
-    }
-
 
     /**
      * Constructor
@@ -495,6 +437,26 @@ class Issue extends ExtendIssue
         //$this->created = new
         $this->created = new \DateTime();
         $this->updated = new \DateTime();
+    }
+
+
+
+
+    /**
+     * @param User $assignee
+     * @return CaseEntity
+     */
+    public function setAssignedTo($assignee)
+    {
+        $this->assignedTo = $assignee;
+        return $this;
+    }
+    /**
+     * @return User|null
+     */
+    public function getAssignedTo()
+    {
+        return $this->assignedTo;
     }
 
     /**
@@ -520,28 +482,6 @@ class Issue extends ExtendIssue
         return $this->reporter;
     }
 
-    /**
-     * Set assignee
-     *
-     * @param User $assignee
-     * @return Issue
-     */
-    public function setAssignee(User $assignee = null)
-    {
-        $this->assignee = $assignee;
-
-        return $this;
-    }
-
-    /**
-     * Get assignee
-     *
-     * @return User
-     */
-    public function getAssignee()
-    {
-        return $this->assignee;
-    }
 
 //    /**
 //     * Set resolution
@@ -777,6 +717,7 @@ class Issue extends ExtendIssue
         $unit = $man->getUnitOfWork();
         $unit->scheduleExtraUpdate($this,array('code'=>array('none',$this->code)));
     }
+
 
 
 }

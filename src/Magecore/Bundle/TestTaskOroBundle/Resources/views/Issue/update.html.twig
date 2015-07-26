@@ -42,8 +42,10 @@
             'title': '',
             'data': [
             form_row(form.summary),
-
+            form.type is defined ? form_row(form.type) : '' ,
             form_row(form.description),
+            form_row(form.assignedTo),
+
 
             ]
         }]
