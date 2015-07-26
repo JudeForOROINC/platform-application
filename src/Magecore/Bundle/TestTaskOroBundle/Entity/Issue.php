@@ -444,7 +444,7 @@ class Issue extends ExtendIssue
 
     /**
      * @param User $assignee
-     * @return CaseEntity
+     * @return Issue
      */
     public function setAssignedTo($assignee)
     {
