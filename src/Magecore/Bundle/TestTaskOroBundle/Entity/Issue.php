@@ -49,6 +49,11 @@ use Oro\Bundle\UserBundle\Model\ExtendUser;
  * @ORM\Table(name="magecore_testtaskoro_issue")
  * @ORM\HasLifecycleCallbacks()
  * @Config(
+ *   defaultValues={
+ *          "security"={
+ *              "type"="ACL"
+ *          }
+ * }
  * )
  * @JMS\ExclusionPolicy("ALL")
  */
