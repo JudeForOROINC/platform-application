@@ -19,7 +19,7 @@ use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\ConfigField;
 /**
  * @ORM\Entity
  * @ORM\Table(name="orocrm_case_priority")
- * @Gedmo\TranslationEntity(class="OroCRM\Bundle\CaseBundle\Entity\CasePriorityTranslation")
+
  * @Config(
  *      defaultValues={
  *          "grouping"={
@@ -31,7 +31,7 @@ use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\ConfigField;
  *      }
  * )
  */
-class CasePriority implements Translatable
+class CasePriority
 {
     const PRIORITY_LOW     = 'low';
     const PRIORITY_NORMAL  = 'normal';
@@ -63,7 +63,7 @@ class CasePriority implements Translatable
      * @var string
      *
      * @ORM\Column(name="label", type="string", length=255)
-     * @Gedmo\Translatable
+
      */
     protected $label;
 
