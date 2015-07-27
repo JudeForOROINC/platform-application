@@ -98,14 +98,14 @@ class IssueType extends AbstractType
             }
         ]
         )
-//        ->add(
-//            'resolution',
-//            'textarea',
-//            [
-//                'label'        => 'field.resolution.label',
-//                'required'     => false
-//            ]
-//        )
+        ->add(
+            'resolution',
+            'textarea',
+            [
+                'label'        => 'field.resolution.label',
+                'required'     => false
+            ]
+        )
         ;
 //        $builder
 //            ->add('priority', 'entity', array('label'=>'field.priority',

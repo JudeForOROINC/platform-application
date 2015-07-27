@@ -22,7 +22,7 @@ use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\ConfigField;
  *      }
  * )
  */
-class DicResolution
+class Resolution
 {
     /**
      * @var integer
