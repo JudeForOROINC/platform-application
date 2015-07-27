@@ -31,7 +31,7 @@ use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\ConfigField;
  *      }
  * )
  */
-class CasePriority
+class Priority
 {
     const PRIORITY_LOW     = 'low';
     const PRIORITY_NORMAL  = 'normal';

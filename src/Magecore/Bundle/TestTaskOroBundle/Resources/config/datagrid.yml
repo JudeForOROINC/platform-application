@@ -7,18 +7,25 @@ datagrid:
                 select:
                     - v.id
                     - v.summary
+                    - v.type
                     - v.code
                     - v.createdAt
+                    - v.updatedAt
 
                 from:
                     - { table: MagecoreTestTaskOroBundle:Issue, alias: v }
         columns:
-            summary:
-                label: Model
             code:
-                label: '# Seats'
+                label: 'code'
+            summary:
+                label: Summary
+            type:
+                label: Type
             createdAt:
-                label: Bought at
+                label: created
+                frontend_type: date
+            updatedAt:
+                label: updated
                 frontend_type: date
         properties:
             id: ~
@@ -46,7 +53,7 @@ datagrid:
                 createdAt:
                     data_name: v.createdAt
             default:
-                createAt: ASC
+                updatedAt: ASC
         filters:
             columns:
                 summary:
