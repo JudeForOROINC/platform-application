@@ -76,6 +76,8 @@ datagrid:
                     data_name: v.summary
                 code:
                     data_name: v.code
+                priorityLabel:
+                    data_name: issuePriority.order
                 createdAt:
                     data_name: v.createdAt
                 updatedAt:
@@ -88,11 +90,17 @@ datagrid:
                     type: string
                     data_name: v.summary
                 code:
-                    type: number
+                    type: string
                     data_name: v.code
                 createdAt:
                     type: date
                     data_name: v.createdAt
+                priorityLabel:
+                    type:      string
+                    data_name: priorityLabel
+                ownerName:
+                    type:      string
+                    data_name: ownerName
         actions:
             view:
                 type:          navigate
