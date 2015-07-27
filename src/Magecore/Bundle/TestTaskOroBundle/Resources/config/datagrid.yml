@@ -7,29 +7,62 @@ datagrid:
                 select:
                     - v.id
                     - v.summary
+                    - v.type
                     - v.code
+                    - issuePriority.label as priorityLabel
+                    - issueResolution.value as resolutionLabel
+                    - CONCAT(owner.firstName, CONCAT(' ', owner.lastName)) as ownerName
+                    - owner.id as ownerId
+                    - CONCAT(assignedTo.firstName, CONCAT(' ', assignedTo.lastName)) as assigneeName
+                    - assignedTo.id as assignedToId
                     - v.createdAt
+                    - v.updatedAt
 
                 from:
                     - { table: MagecoreTestTaskOroBundle:Issue, alias: v }
+                join:
+                    left:
+                        - { join: v.priority, alias: issuePriority }
+                        - { join: v.resolution, alias: issueResolution }
+                        - { join: v.assignedTo, alias: assignedTo }
+                        - { join: v.reporter, alias: owner }
         columns:
-            summary:
-                label: Model
             code:
-                label: '# Seats'
+                label: '# code'
+            summary:
+                label: Summary
+            type:
+                label: Type
+            priorityLabel:
+                label: priority
+            resolutionLabel:
+                label: resolution
+            ownerName:
+                type:          twig
+                label:         reporter
+                frontend_type: html
+                template:      MagecoreTestTaskOroBundle:Issue:Datagrid/Property/reporter.html.twig
+            assigneeName:
+                type:          twig
+                label:         assignee
+                frontend_type: html
+                template:      MagecoreTestTaskOroBundle:Issue:Datagrid/Property/assignedTo.html.twig
             createdAt:
-                label: Bought at
-                frontend_type: date
+                label: created
+                frontend_type: datetime
+            updatedAt:
+                label: updated
+                frontend_type: datetime
         properties:
             id: ~
-            view_link:
-                type: url
-                route: magecore_testtaskoro.issue_view
-                params:
-                    - id
             update_link:
                 type: url
                 route: magecore_testtaskoro.issue_update
+                params:
+                    - id
+            view_link:
+                type: url
+                route: magecore_testtastoro.issue_view
                 params:
                     - id
             delete_link:
@@ -43,38 +76,48 @@ datagrid:
                     data_name: v.summary
                 code:
                     data_name: v.code
+                priorityLabel:
+                    data_name: issuePriority.order
                 createdAt:
                     data_name: v.createdAt
+                updatedAt:
+                    data_name: v.updatedAt
             default:
-                createAt: ASC
+                updatedAt: ASC
         filters:
             columns:
                 summary:
                     type: string
                     data_name: v.summary
                 code:
-                    type: number
+                    type: string
                     data_name: v.code
                 createdAt:
                     type: date
                     data_name: v.createdAt
+                priorityLabel:
+                    type:      string
+                    data_name: priorityLabel
+                ownerName:
+                    type:      string
+                    data_name: ownerName
         actions:
             view:
-                type:         navigate
-                acl_resource: magecore_testtaskoro.issue_view
-                label:        oro.grid.action.view
-                icon:         eye-open
-                link:         view_link
-                rowAction:    true
+                type:          navigate
+                label:         View
+                link:          view_link
+                icon:          eye-open
+                acl_resource:  testtaskoro.issue_view
+                rowAction:     true
             update:
-                type:         navigate
-                acl_resource: magecore_testtaskoro.issue_update
-                label:        oro.grid.action.update
-                icon:         edit
-                link:         update_link
+                type:          navigate
+                acl_resource:  magecore_testtaskoro.issue_update
+                label:         oro.grid.action.update
+                icon:          edit
+                link:          update_link
             delete:
-                type:         delete
-                acl_resource: magecore_testtaskoro.issue_delete
-                label:        oro.grid.action.delete
-                icon:         trash
-                link:         delete_link
+                type:          delete
+                acl_resource:  magecore_testtaskoro.issue_delete
+                label:         oro.grid.action.delete
+                icon:          trash
+                link:          delete_link

@@ -35,7 +35,7 @@ class IssueType extends AbstractType
                 'oro_user_organization_acl_select',
                 [
                     'required'      => false,
-                    'label'         => 'orocrm.case.caseentity.assigned_to.label',
+                    'label'         => 'field.assignee',
                 ]
             );
 //        if (isset($options['projects'])&& count($options['projects'])) {
@@ -85,6 +85,29 @@ class IssueType extends AbstractType
                 'empty_data'=>null,
             ));
         }
+        $builder
+        ->add(
+        'priority',
+        'entity',
+        [
+            'label'         => 'field.priority.label',
+            'class'         => 'MagecoreTestTaskOroBundle:Priority',
+            'query_builder' => function (EntityRepository $entityRepository) {
+                return $entityRepository->createQueryBuilder('priority')
+                    ->orderBy('priority.order', 'ASC');
+            }
+        ]
+        )
+        ->add(
+            'resolution',
+            'entity',
+            [
+                'label'        => 'field.resolution.label',
+                'required'     => false,
+                'class'         => 'MagecoreTestTaskOroBundle:Resolution',
+            ]
+        )
+        ;
 //        $builder
 //            ->add('priority', 'entity', array('label'=>'field.priority',
 //                'class' => 'Magecore\Bundle\TestTaskBundle\Entity\DicPriority',

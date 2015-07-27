@@ -95,7 +95,7 @@ class Issue extends ExtendIssue
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=10, unique=true)
+     * @ORM\Column(type="string", length=14, unique=true)
      * @JMS\Type("string")
      * @JMS\Expose
      * @Oro\Versioned
@@ -115,14 +115,20 @@ class Issue extends ExtendIssue
 
     /**
      * @var User
-     *
      * @ORM\ManyToOne(targetEntity="Oro\Bundle\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="reporter_id", referencedColumnName="id", onDelete="SET NULL")
      * @Oro\Versioned
      * @ConfigField(
      *      defaultValues={
+     *          "merge"={
+     *              "display"=true
+     *          },
      *          "dataaudit"={
      *              "auditable"=true
+     *          },
+     *          "importexport"={
+     *              "order"=30,
+     *              "short"=true
      *          }
      *      }
      * )
@@ -131,13 +137,19 @@ class Issue extends ExtendIssue
 
     /**
      * @var User
-     *
      * @ORM\ManyToOne(targetEntity="Oro\Bundle\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="assigned_to_id", referencedColumnName="id", onDelete="SET NULL")
      * @ConfigField(
      *      defaultValues={
+     *          "merge"={
+     *              "display"=true
+     *          },
      *          "dataaudit"={
      *              "auditable"=true
+     *          },
+     *          "importexport"={
+     *              "order"=30,
+     *              "short"=true
      *          }
      *      }
      * )
@@ -149,7 +161,7 @@ class Issue extends ExtendIssue
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="description", type="text", nullable=false)
      * @Oro\Versioned
      * @ConfigField(
      *      defaultValues={
@@ -170,11 +182,19 @@ class Issue extends ExtendIssue
      */
     private $type;
 
-//    /**
-//     * @ORM\ManyToOne(targetEntity="DicPriority")
-//     * @ORM\JoinColumn(name="priority_id", referencedColumnName="id", nullable=false)
-//     */
-//    private $priority;
+    /**
+     * @ORM\ManyToOne(targetEntity="Priority")
+     * @ORM\JoinColumn(name="priority_name", referencedColumnName="name", onDelete="SET NULL")
+     * @Oro\Versioned
+     * @ConfigField(
+     *      defaultValues={
+     *          "dataaudit"={
+     *              "auditable"=true
+     *          }
+     *      }
+     * )
+     */
+    private $priority;
 
 //    /**
 //     * @ORM\ManyToOne(targetEntity="DicStatus")
@@ -182,11 +202,11 @@ class Issue extends ExtendIssue
 //     */
 //    private $status;
 
-//    /**
-//     * @ORM\ManyToOne(targetEntity="DicResolution")
-//     * @ORM\JoinColumn(name="resolution_id", referencedColumnName="id")
-//     */
-//    private $resolution;
+    /**
+     * @ORM\ManyToOne(targetEntity="Resolution")
+     * @ORM\JoinColumn(name="resolution_id", referencedColumnName="id", onDelete="SET NULL")
+     */
+    private $resolution;
 
     /**
      * @var \DateTime
@@ -198,6 +218,7 @@ class Issue extends ExtendIssue
     /**
      * @var \DateTime
      *
+
      * @ORM\Column(name="updatedAt", type="datetime")
      */
     private $updatedAt;
@@ -424,6 +445,37 @@ class Issue extends ExtendIssue
     }
 
 
+    /**
+     * @param \DateTime $createdAt
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @param \DateTime $updatedAt
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
 
     /**
      * Constructor
@@ -439,9 +491,6 @@ class Issue extends ExtendIssue
         $this->updated = new \DateTime();
     }
 
-
-
-
     /**
      * @param User $assignee
      * @return Issue
@@ -451,6 +500,7 @@ class Issue extends ExtendIssue
         $this->assignedTo = $assignee;
         return $this;
     }
+
     /**
      * @return User|null
      */
@@ -482,29 +532,28 @@ class Issue extends ExtendIssue
         return $this->reporter;
     }
 
+    /**
+     * Set resolution
+     *
+     * @param Resolution $resolution
+     * @return Issue
+     */
+    public function setResolution(Resolution $resolution = null)
+    {
+        $this->resolution = $resolution;
 
-//    /**
-//     * Set resolution
-//     *
-//     * @param \Magecore\Bundle\TestTaskBundle\Entity\DicResolution $resolution
-//     * @return Issue
-//     */
-//    public function setResolution(\Magecore\Bundle\TestTaskBundle\Entity\DicResolution $resolution = null)
-//    {
-//        $this->resolution = $resolution;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * Get resolution
-//     *
-//     * @return \Magecore\Bundle\TestTaskBundle\Entity\DicResolution
-//     */
-//    public function getResolution()
-//    {
-//        return $this->resolution;
-//    }
+        return $this;
+    }
+
+    /**
+     * Get resolution
+     *
+     * @return Resolution
+     */
+    public function getResolution()
+    {
+        return $this->resolution;
+    }
 
 //    /**
 //     * Add children
@@ -640,84 +689,32 @@ class Issue extends ExtendIssue
 //    }
 
     /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     * @return Attachment
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Get createdAt
-     *
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * Set updatedAt
-     *
-     * @param \DateTime $updatedAt
-     * @return Attachment
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get updatedAt
-     *
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
-
-    /**
-     * Pre persist event handler
-     *
      * @ORM\PrePersist
      */
     public function prePersist()
     {
-        $this->createdAt = new \DateTime('now', new \DateTimeZone('UTC'));
+        $this->createdAt = $this->createdAt ? : new \DateTime('now', new \DateTimeZone('UTC'));
         $this->updatedAt = clone $this->createdAt;
     }
 
     /**
-     * Pre update event handler
-     *
+     * @ORM\PostPersist
+     */
+    public function postPersist(LifecycleEventArgs $args)
+    {
+        $this->code = "ISS-".$this->getId();
+        /** @var EntityManager $man */
+        $man = $args->getObjectManager();
+        $unit = $man->getUnitOfWork();
+        $unit->scheduleExtraUpdate($this,array('code'=>array('none',$this->code)));
+
+    }
+
+    /**
      * @ORM\PreUpdate
      */
     public function preUpdate()
     {
         $this->updatedAt = new \DateTime('now', new \DateTimeZone('UTC'));
     }
-
-
-    /**
-     * @ORM\PostPersist
-     */
-    public function PostPersist(LifecycleEventArgs $args) {
-        $this->code = "ISS-".$this->getId();
-        /** @var EntityManager $man */
-        $man = $args->getObjectManager();
-        $unit = $man->getUnitOfWork();
-        $unit->scheduleExtraUpdate($this,array('code'=>array('none',$this->code)));
-    }
-
-
-
 }

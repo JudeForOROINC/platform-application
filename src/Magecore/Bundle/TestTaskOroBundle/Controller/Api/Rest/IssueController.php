@@ -2,41 +2,43 @@
 /**
  * Created by PhpStorm.
  * User: jude
- * Date: 25.07.15
- * Time: 12:06
+ * Date: 22.07.15
+ * Time: 12:00
  */
-// src/InventoryBundle/Controller/Api/Rest/VehicleController.php
+// src/InventoryBundle/Controller/VehicleController.php
 namespace Magecore\Bundle\TestTaskOroBundle\Controller\Api\Rest;
 
 use FOS\RestBundle\Controller\Annotations\NamePrefix;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
-use Oro\Bundle\SecurityBundle\Annotation\Acl;
+use Magecore\Bundle\TestTaskOroBundle\Entity\Issue;
+use Magecore\Bundle\TestTaskOroBundle\Form\Type\IssueType;
 use Oro\Bundle\SoapBundle\Controller\Api\Rest\RestController;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Oro\Bundle\SecurityBundle\Annotation\Acl;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-
-use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
-use Oro\Bundle\SoapBundle\Entity\Manager\ApiEntityManager;
-use Oro\Bundle\SoapBundle\Form\Handler\ApiFormHandler;
 
 /**
  * @RouteResource("issue")
  * @NamePrefix("magecore_testtaskoro_api_")
+ *
  */
 class IssueController extends RestController
 {
     /**
+     * @ApiDoc(
+     *     description="Delete IssueEntity",
+     *     resource=true
+     * )
      * @Acl(
      *      id="magecore_testtaskoro.issue_delete",
      *      type="entity",
      *      class="MagecoreTestTaskOroBundle:Issue",
      *      permission="DELETE"
      * )
-     * @ApiDoc(
-     *      description="Get all task items",
-     *      resource=true
-     * )
-     * @AclAncestor("magecore_testtaskoro_issue_delete")
      */
     public function deleteAction($id)
     {

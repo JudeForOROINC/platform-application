@@ -15,8 +15,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Oro\Bundle\SecurityBundle\Annotation\Acl;
-use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
+use Oro\Bundle\UserBundle\Entity\User;
 
 /**
  * @Route("/issue")
@@ -33,10 +34,10 @@ class IssueController extends Controller
      *     permission="VIEW"
      * )
      */
-    public function indexAction(){
+    public function indexAction()
+    {
         return array('entity_class'=>'MagecoreTestTaskOroBundle\Entity\Issue');
     }
-
     /**
      * @Route("/create", name="magecore_testtaskoro.issue_create")
      * @Template("MagecoreTestTaskOroBundle:Issue:update.html.twig")
@@ -74,12 +75,15 @@ class IssueController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            if (!$issue->getReporter()) {
+                $issue->setReporter($this->getCurrentUser());
+            }
             $entityManager->persist($issue);
             $entityManager->flush();
 
             return $this->get('oro_ui.router')->redirectAfterSave(
                 array(
-                    'route' => 'magecore_testtaskoro.issue_update',
+                    'route' => 'magecore_testtastoro.issue_update',
                     'parameters' => array('id' => $issue->getId()),
                 ),
                 array('route' => 'magecore_testtaskoro_issue'),
@@ -94,20 +98,25 @@ class IssueController extends Controller
     }
 
     /**
-     * @Route("/view/{id}", name="magecore_testtaskoro.issue_view", requirements={"id"="\d+"})
-     * @Acl(
-     *     id="magecore_testtaskoro.issue_view",
-     *     type="entity",
-     *     class="MagecoreTestTaskOroBundle:Issue",
-     *     permission="VIEW"
-     * )
+     * @param Issue $issue
+     *
+     * @Route("/{id}", name="magecore_testtastoro.issue_view", requirements={"id"="\d+"})
      * @Template
+     * @AclAncestor("magecore_testtastoro.issue_view")
      */
     public function viewAction(Issue $issue)
     {
         return array('entity' => $issue);
     }
 
+    /**
+     * @return User
+     */
+    protected function getCurrentUser()
+    {
+        $token = $this->container->get('security.context')->getToken();
 
+        return $token ? $token->getUser() : null;
+    }
 
 }

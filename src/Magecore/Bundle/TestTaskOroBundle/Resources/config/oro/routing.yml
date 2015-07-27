@@ -2,8 +2,7 @@ magecore_testtaskoro:
     resource: "@MagecoreTestTaskOroBundle/Controller"
     type: annotation
     prefix: /
-
-magecore_testtaskoro_api_vehicle:
+magecore_testtaskoro_api_issue:
     resource:     "@MagecoreTestTaskOroBundle/Controller/Api/Rest/IssueController.php"
     type:         rest
     prefix:       api/rest/{version}/

@@ -15,7 +15,7 @@
         {% set html = html ~ UI.saveAndStayButton() %}
     {% endif %}
     {{ UI.dropdownSaveButton({ 'html': html }) }}
-    {% endblock navButtons %}
+{% endblock navButtons %}
 
         {% block pageHeader %}
         {% if form.vars.value.id %}
@@ -45,6 +45,8 @@
             form.type is defined ? form_row(form.type) : '' ,
             form_row(form.description),
             form_row(form.assignedTo),
+            form_row(form.priority),
+            form_row(form.resolution),
             form.Reporter is defined ? form_row(form.Reporter) : '' ,
 
 

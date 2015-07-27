@@ -27,6 +27,7 @@ class MagecoreTestTaskOroBundleInstaller implements Installation
     {
         /** Tables generation **/
         $this->createMagecoreTesttaskoroIssueTable($schema);
+        $this->createMagecoreTesttaskoroPriorityTable($schema);
 
         /** Foreign keys generation **/
         $this->addMagecoreTesttaskoroIssueForeignKeys($schema);
@@ -41,18 +42,34 @@ class MagecoreTestTaskOroBundleInstaller implements Installation
     {
         $table = $schema->createTable('magecore_testtaskoro_issue');
         $table->addColumn('id', 'integer', ['autoincrement' => true]);
-        $table->addColumn('parent_issue_id', 'integer', ['notnull' => false]);
-        $table->addColumn('user_owner_id', 'integer', ['notnull' => false]);
+        $table->addColumn('priority_name', 'string', ['notnull' => false, 'length' => 16]);
+        $table->addColumn('reporter_id', 'integer', ['notnull' => false]);
+        $table->addColumn('assigned_to_id', 'integer', ['notnull' => false]);
         $table->addColumn('summary', 'string', ['length' => 255]);
-        $table->addColumn('code', 'string', ['length' => 10]);
+        $table->addColumn('code', 'string', ['length' => 14]);
         $table->addColumn('description', 'text', []);
         $table->addColumn('issue_type', 'string', ['length' => 30]);
-        $table->addColumn('created', 'datetime', []);
-        $table->addColumn('updated', 'datetime', []);
+        $table->addColumn('createdAt', 'datetime', []);
+        $table->addColumn('updatedAt', 'datetime', []);
         $table->setPrimaryKey(['id']);
         $table->addUniqueIndex(['code'], 'UNIQ_CF2A577B77153098');
-        $table->addIndex(['user_owner_id'], 'IDX_CF2A577B9EB185F9', []);
-//        $table->addIndex(['parent_issue_id'], 'IDX_CF2A577BC1B7095D', []);
+        $table->addIndex(['reporter_id'], 'IDX_CF2A577BE1CFE6F5', []);
+        $table->addIndex(['assigned_to_id'], 'IDX_CF2A577BF4BD7827', []);
+        $table->addIndex(['priority_name'], 'IDX_CF2A577B965BD3DF', []);
+    }
+
+    /**
+     * Create magecore_testtaskoro_priority table
+     *
+     * @param Schema $schema
+     */
+    protected function createMagecoreTesttaskoroPriorityTable(Schema $schema)
+    {
+        $table = $schema->createTable('magecore_testtaskoro_priority');
+        $table->addColumn('name', 'string', ['length' => 16]);
+        $table->addColumn('order', 'integer', []);
+        $table->addColumn('label', 'string', ['length' => 255]);
+        $table->setPrimaryKey(['name']);
     }
 
     /**
@@ -63,15 +80,21 @@ class MagecoreTestTaskOroBundleInstaller implements Installation
     protected function addMagecoreTesttaskoroIssueForeignKeys(Schema $schema)
     {
         $table = $schema->getTable('magecore_testtaskoro_issue');
-//        $table->addForeignKeyConstraint(
-//            $schema->getTable('magecore_testtaskoro_issue'),
-//            ['parent_issue_id'],
-//            ['id'],
-//            ['onDelete' => 'CASCADE', 'onUpdate' => null]
-//        );
+        $table->addForeignKeyConstraint(
+            $schema->getTable('magecore_testtaskoro_priority'),
+            ['priority_name'],
+            ['name'],
+            ['onDelete' => 'SET NULL', 'onUpdate' => null]
+        );
         $table->addForeignKeyConstraint(
             $schema->getTable('oro_user'),
-            ['user_owner_id'],
+            ['reporter_id'],
+            ['id'],
+            ['onDelete' => 'SET NULL', 'onUpdate' => null]
+        );
+        $table->addForeignKeyConstraint(
+            $schema->getTable('oro_user'),
+            ['assigned_to_id'],
             ['id'],
             ['onDelete' => 'SET NULL', 'onUpdate' => null]
         );

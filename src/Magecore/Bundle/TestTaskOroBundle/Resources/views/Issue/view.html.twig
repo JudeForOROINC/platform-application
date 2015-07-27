@@ -27,7 +27,7 @@
     'entity':      entity,
     'indexPath':   path('magecore_testtaskoro_issue'),
     'indexLabel': 'Issues'|trans,
-    'entityTitle': entity.code
+    'entityTitle': entity.summary
     } %}
     {{ parent() }}
 {% endblock pageHeader %}
@@ -37,10 +37,9 @@
     <div class="widget-content">
         <div class="row-fluid form-horizontal">
             <div class="responsive-block">
-                {{ UI.renderProperty('Model'|trans, entity.summary) }}
-                {{ UI.renderProperty('Seats'|trans, entity.code) }}
+                {{ UI.renderProperty('Summary'|trans, entity.summary) }}
+                {{ UI.renderProperty('Description'|trans, entity.description) }}
                 {{ UI.renderProperty('Bought at'|trans, entity.createdAt|date) }}
-
             </div>
         </div>
     </div>
