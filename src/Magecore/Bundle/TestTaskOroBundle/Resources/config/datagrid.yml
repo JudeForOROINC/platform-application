@@ -9,18 +9,28 @@ datagrid:
                     - v.summary
                     - v.type
                     - v.code
+                    - issuePriority.label as priorityLabel
+                    - issueResolution.value as resolutionLabel
                     - v.createdAt
                     - v.updatedAt
 
                 from:
                     - { table: MagecoreTestTaskOroBundle:Issue, alias: v }
+                join:
+                    left:
+                        - { join: v.priority, alias: issuePriority }
+                        - { join: v.resolution, alias: issueResolution }
         columns:
             code:
-                label: 'code'
+                label: '# code'
             summary:
                 label: Summary
             type:
                 label: Type
+            priorityLabel:
+                label: priority
+            resolutionLabel:
+                label: resolution
             createdAt:
                 label: created
                 frontend_type: datetime
