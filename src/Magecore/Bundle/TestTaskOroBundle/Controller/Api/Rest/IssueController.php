@@ -39,6 +39,14 @@ class IssueController extends RestController
      *      class="MagecoreTestTaskOroBundle:Issue",
      *      permission="DELETE"
      * )
+<<<<<<< HEAD
+=======
+     * @ApiDoc(
+     *      description="Get all task items",
+     *      resource=true
+     * )
+     * @AclAncestor("magecore_testtaskoro_issue_delete")
+>>>>>>> origin/my_tmp_1_7_4
      */
     public function deleteAction($id)
     {

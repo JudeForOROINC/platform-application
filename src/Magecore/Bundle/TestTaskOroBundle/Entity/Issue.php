@@ -49,11 +49,11 @@ use Oro\Bundle\UserBundle\Model\ExtendUser;
  * @ORM\Table(name="magecore_testtaskoro_issue")
  * @ORM\HasLifecycleCallbacks()
  * @Config(
- *      defaultValues={
+ *   defaultValues={
  *          "security"={
  *              "type"="ACL"
  *          }
- *      }
+ * }
  * )
  * @JMS\ExclusionPolicy("ALL")
  */
@@ -116,7 +116,7 @@ class Issue extends ExtendIssue
     /**
      * @var User
      * @ORM\ManyToOne(targetEntity="Oro\Bundle\UserBundle\Entity\User")
-     * @ORM\JoinColumn(name="user_owner_id", referencedColumnName="id", onDelete="SET NULL")
+     * @ORM\JoinColumn(name="reporter_id", referencedColumnName="id", onDelete="SET NULL")
      * @Oro\Versioned
      * @ConfigField(
      *      defaultValues={
@@ -138,8 +138,7 @@ class Issue extends ExtendIssue
     /**
      * @var User
      * @ORM\ManyToOne(targetEntity="Oro\Bundle\UserBundle\Entity\User")
-     * @ORM\JoinColumn(name="user_owner_id", referencedColumnName="id", onDelete="SET NULL")
-     * @Oro\Versioned
+     * @ORM\JoinColumn(name="assigned_to_id", referencedColumnName="id", onDelete="SET NULL")
      * @ConfigField(
      *      defaultValues={
      *          "merge"={
@@ -154,8 +153,9 @@ class Issue extends ExtendIssue
      *          }
      *      }
      * )
+     * @Oro\Versioned
      */
-    private $assignee;
+    protected $assignedTo;
 
 
     /**
@@ -203,14 +203,15 @@ class Issue extends ExtendIssue
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="createAt", type="datetime")
+     * @ORM\Column(name="createdAt", type="datetime")
      */
     private $createdAt;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="updateAt", type="datetime")
+
+     * @ORM\Column(name="updatedAt", type="datetime")
      */
     private $updatedAt;
 
@@ -483,6 +484,24 @@ class Issue extends ExtendIssue
     }
 
     /**
+     * @param User $assignee
+     * @return CaseEntity
+     */
+    public function setAssignedTo($assignee)
+    {
+        $this->assignedTo = $assignee;
+        return $this;
+    }
+
+    /**
+     * @return User|null
+     */
+    public function getAssignedTo()
+    {
+        return $this->assignedTo;
+    }
+
+    /**
      * Set reporter
      *
      * @param User $reporter
@@ -503,29 +522,6 @@ class Issue extends ExtendIssue
     public function getReporter()
     {
         return $this->reporter;
-    }
-
-    /**
-     * Set assignee
-     *
-     * @param User $assignee
-     * @return Issue
-     */
-    public function setAssignee(User $assignee = null)
-    {
-        $this->assignee = $assignee;
-
-        return $this;
-    }
-
-    /**
-     * Get assignee
-     *
-     * @return User
-     */
-    public function getAssignee()
-    {
-        return $this->assignee;
     }
 
 //    /**

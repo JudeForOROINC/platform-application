@@ -27,9 +27,17 @@ class IssueType extends AbstractType
         $builder
             ->add('summary', null, array('label'=>'field.summary.issue'))
             ->add('description', null, array('label'=>'field.description'))
-            ->add('assignee', null, array('label'=>'field.assigned'))
+           // ->add('assignee', null, array('label'=>'field.assigned'))
         ;
-
+        $builder
+            ->add(
+                'assignedTo',
+                'oro_user_organization_acl_select',
+                [
+                    'required'      => false,
+                    'label'         => 'orocrm.case.caseentity.assigned_to.label',
+                ]
+            );
 //        if (isset($options['projects'])&& count($options['projects'])) {
 //            $pro = array();
 //            if (count($options['projects'])==1) {
