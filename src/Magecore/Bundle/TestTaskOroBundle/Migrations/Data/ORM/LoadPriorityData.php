@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jude
- * Date: 27.07.15
- * Time: 11:14
- */
-
 
 namespace Magecore\Bundle\TestTaskOroBundle\Migrations\Data\ORM;
 

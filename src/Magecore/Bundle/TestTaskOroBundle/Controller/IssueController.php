@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Oro\Bundle\SecurityBundle\Annotation\Acl;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
+use Oro\Bundle\UserBundle\Entity\User;
 
 /**
  * @Route("/issue")
@@ -73,6 +74,9 @@ class IssueController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            if (!$issue->getReporter()){
+                $issue->setReporter($this->getCurrentUser());
+            }
             $entityManager->persist($issue);
             $entityManager->flush();
 
@@ -103,5 +107,14 @@ class IssueController extends Controller
         return array('entity' => $issue);
     }
 
+    /**
+     * @return User
+     */
+    protected function getCurrentUser()
+    {
+        $token = $this->container->get('security.context')->getToken();
+
+        return $token ? $token->getUser() : null;
+    }
 
 }
