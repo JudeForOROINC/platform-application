@@ -182,11 +182,19 @@ class Issue extends ExtendIssue
      */
     private $type;
 
-//    /**
-//     * @ORM\ManyToOne(targetEntity="DicPriority")
-//     * @ORM\JoinColumn(name="priority_id", referencedColumnName="id", nullable=false)
-//     */
-//    private $priority;
+    /**
+     * @ORM\ManyToOne(targetEntity="Priority")
+     * @ORM\JoinColumn(name="priority_name", referencedColumnName="name", onDelete="SET NULL")
+     * @Oro\Versioned
+     * @ConfigField(
+     *      defaultValues={
+     *          "dataaudit"={
+     *              "auditable"=true
+     *          }
+     *      }
+     * )
+     */
+    private $priority;
 
 //    /**
 //     * @ORM\ManyToOne(targetEntity="DicStatus")

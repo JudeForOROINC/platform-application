@@ -13,8 +13,9 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 use Magecore\Bundle\TestTaskOroBundle\Entity\Priority;
 use Oro\Bundle\TranslationBundle\DataFixtures\AbstractTranslatableEntityFixture;
+use Doctrine\Common\DataFixtures\FixtureInterface;
 
-class LoadPriorityData extends AbstractTranslatableEntityFixture
+class LoadPriorityData extends AbstractTranslatableEntityFixture implements FixtureInterface
 {
     const CASE_PRIORITY_PREFIX = 'case_priority';
 
@@ -41,10 +42,15 @@ class LoadPriorityData extends AbstractTranslatableEntityFixture
             if (!$casePriority) {
                 $casePriority = new Priority($priorityName);
                 $casePriority->setOrder($order);
+                $casePriority->setLabel($priorityName);
             }
             // save
             $manager->persist($casePriority);
         }
         $manager->flush();
+    }
+    public function load(ObjectManager $manager)
+    {
+        $this->loadEntities($manager);
     }
 }

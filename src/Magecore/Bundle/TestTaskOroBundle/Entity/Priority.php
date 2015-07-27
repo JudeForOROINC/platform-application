@@ -18,7 +18,7 @@ use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\ConfigField;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="orocrm_case_priority")
+ * @ORM\Table(name="magecore_testtaskoro_priority")
 
  * @Config(
  *      defaultValues={
