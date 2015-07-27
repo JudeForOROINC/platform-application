@@ -52,6 +52,8 @@ datagrid:
                     data_name: v.code
                 createdAt:
                     data_name: v.createdAt
+                updatedAt:
+                    data_name: v.updatedAt
             default:
                 updatedAt: ASC
         filters:
