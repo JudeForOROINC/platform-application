@@ -1,0 +1,7 @@
+services:
+    magecore_testtaskoro.issue_manager.api:
+        class: Oro\Bundle\SoapBundle\Entity\Manager\ApiEntityManager
+        parent: oro_soap.manager.entity_manager.abstract
+        arguments:
+            - Magecore\Bundle\TestTaskOroBundle\Entity\Issue
+            - "@doctrine.orm.entity_manager"

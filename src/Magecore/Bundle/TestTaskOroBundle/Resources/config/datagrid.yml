@@ -8,7 +8,7 @@ datagrid:
                     - v.id
                     - v.summary
                     - v.code
-                    - v.created
+                    - v.createdAt
 
                 from:
                     - { table: MagecoreTestTaskOroBundle:Issue, alias: v }
@@ -17,24 +17,24 @@ datagrid:
                 label: Model
             code:
                 label: '# Seats'
-            createAt:
+            createdAt:
                 label: Bought at
                 frontend_type: date
         properties:
             id: ~
             update_link:
                 type: url
-                route: magecore_testtastoro.issue_update
+                route: magecore_testtaskoro.issue_update
                 params:
                     - id
             view_link:
                 type: url
-                route: magecore_testtastoro.issue_update
+                route: magecore_testtastoro.issue_view
                 params:
                     - id
             delete_link:
                 type: url
-                route: inventory_api_delete_vehicle
+                route: magecore_testtaskoro_api_delete_issue
                 params:
                     - id
         sorters:
@@ -43,26 +43,38 @@ datagrid:
                     data_name: v.summary
                 code:
                     data_name: v.code
-                createAt:
-                    data_name: v.created
+                createdAt:
+                    data_name: v.createdAt
             default:
                 createAt: ASC
         filters:
             columns:
-                model:
+                summary:
                     type: string
-                    data_name: v.model
-                seats:
+                    data_name: v.summary
+                code:
                     type: number
-                    data_name: v.seats
-                boughtAt:
+                    data_name: v.code
+                createdAt:
                     type: date
-                    data_name: v.created
+                    data_name: v.createdAt
         actions:
             view:
                 type:          navigate
                 label:         View
                 link:          view_link
                 icon:          eye-open
-                acl_resource:  inventory.vehicle_view
+                acl_resource:  testtaskoro.issue_view
                 rowAction:     true
+            update:
+                type:          navigate
+                acl_resource:  magecore_testtaskoro.issue_update
+                label:         oro.grid.action.update
+                icon:          edit
+                link:          update_link
+            delete:
+                type:          delete
+                acl_resource:  magecore_testtaskoro.issue_delete
+                label:         oro.grid.action.delete
+                icon:          trash
+                link:          delete_link

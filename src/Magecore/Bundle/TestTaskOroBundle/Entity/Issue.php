@@ -2,6 +2,8 @@
 
 namespace Magecore\Bundle\TestTaskOroBundle\Entity;
 
+use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+use Doctrine\ORM\EntityManager;
 use Magecore\Bundle\TestTaskOroBundle\Model\ExtendIssue;
 use Oro\Bundle\UserBundle\Entity\User;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
@@ -47,6 +49,11 @@ use Oro\Bundle\UserBundle\Model\ExtendUser;
  * @ORM\Table(name="magecore_testtaskoro_issue")
  * @ORM\HasLifecycleCallbacks()
  * @Config(
+ *      defaultValues={
+ *          "security"={
+ *              "type"="ACL"
+ *          }
+ *      }
  * )
  * @JMS\ExclusionPolicy("ALL")
  */
@@ -88,7 +95,7 @@ class Issue extends ExtendIssue
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=10, unique=true)
+     * @ORM\Column(type="string", length=14, unique=true)
      * @JMS\Type("string")
      * @JMS\Expose
      * @Oro\Versioned
@@ -154,7 +161,15 @@ class Issue extends ExtendIssue
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="description", type="text", nullable=false)
+     * @Oro\Versioned
+     * @ConfigField(
+     *      defaultValues={
+     *          "dataaudit"={
+     *              "auditable"=true
+     *          }
+     *      }
+     * )
      */
     private $description;
 
@@ -188,16 +203,16 @@ class Issue extends ExtendIssue
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created", type="datetime")
+     * @ORM\Column(name="createAt", type="datetime")
      */
-    private $created;
+    private $createdAt;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="updated", type="datetime")
+     * @ORM\Column(name="updateAt", type="datetime")
      */
-    private $updated;
+    private $updatedAt;
 
 //    /**
 //     * @ORM\OneToMany(targetEntity="Issue", mappedBy="parentIssue")
@@ -422,51 +437,36 @@ class Issue extends ExtendIssue
 
 
     /**
-     * Set created
-     *
-     * @param \DateTime $created
-     * @return Issue
+     * @param \DateTime $createdAt
      */
-    public function setCreated($created)
+    public function setCreatedAt($createdAt)
     {
-        $this->created = $created;
-
-        return $this;
+        $this->createdAt = $createdAt;
     }
 
     /**
-     * Get created
-     *
+     * @param \DateTime $updatedAt
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+    }
+
+    /**
      * @return \DateTime
      */
-    public function getCreated()
+    public function getCreatedAt()
     {
-        return $this->created;
+        return $this->createdAt;
     }
 
     /**
-     * Set updated
-     *
-     * @param \DateTime $updated
-     * @return Issue
-     */
-    public function setUpdated($updated)
-    {
-        $this->updated = $updated;
-
-        return $this;
-    }
-
-    /**
-     * Get updated
-     *
      * @return \DateTime
      */
-    public function getUpdated()
+    public function getUpdatedAt()
     {
-        return $this->updated;
+        return $this->updatedAt;
     }
-
 
     /**
      * Constructor
@@ -687,13 +687,30 @@ class Issue extends ExtendIssue
     /**
      * @ORM\PrePersist
      */
-    public function PrePersist() {
-        $this->code = "ISS-".time().rand();
+    public function prePersist()
+    {
+        $this->createdAt = $this->createdAt ? : new \DateTime('now', new \DateTimeZone('UTC'));
+        $this->updatedAt = clone $this->createdAt;
     }
+
     /**
      * @ORM\PostPersist
      */
-    public function PostPersist() {
+    public function postPersist(LifecycleEventArgs $args)
+    {
         $this->code = "ISS-".$this->getId();
+        /** @var EntityManager $man */
+        $man = $args->getObjectManager();
+        $unit = $man->getUnitOfWork();
+        $unit->scheduleExtraUpdate($this,array('code'=>array('none',$this->code)));
+
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function preUpdate()
+    {
+        $this->updatedAt = new \DateTime('now', new \DateTimeZone('UTC'));
     }
 }

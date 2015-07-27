@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Oro\Bundle\SecurityBundle\Annotation\Acl;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
 
 /**
  * @Route("/issue")
@@ -51,10 +52,10 @@ class IssueController extends Controller
     }
 
     /**
-     * @Route("/update/{id}", name="magecore_testtastoro.issue_update", requirements={"id":"\d+"}, defaults={"id":0})
+     * @Route("/update/{id}", name="magecore_testtaskoro.issue_update", requirements={"id":"\d+"}, defaults={"id":0})
      * @Template()
      * @Acl(
-     *     id="magecore_testtastoro.issue_update",
+     *     id="magecore_testtaskoro.issue_update",
      *     type="entity",
      *     class="MagecoreTestTaskOroBundle:Issue",
      *     permission="EDIT"
@@ -89,6 +90,17 @@ class IssueController extends Controller
             'entity' => $issue,
             'form' => $form->createView(),
         );
+    }
+
+    /**
+     * @param Issue $issue
+     *
+     * @Route("/{id}", name="magecore_testtastoro.issue_view", requirements={"id"="\d+"})
+     * @Template
+     * @AclAncestor("magecore_testtastoro.issue_view")
+     */
+    public function viewAction(Issue $issue){
+        return array('entity' => $issue);
     }
 
 
