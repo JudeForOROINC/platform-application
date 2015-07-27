@@ -23,10 +23,10 @@ datagrid:
                 label: Type
             createdAt:
                 label: created
-                frontend_type: date
+                frontend_type: datetime
             updatedAt:
                 label: updated
-                frontend_type: date
+                frontend_type: datetime
         properties:
             id: ~
             update_link:

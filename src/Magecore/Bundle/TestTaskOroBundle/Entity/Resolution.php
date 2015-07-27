@@ -7,7 +7,7 @@ use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\ConfigField;
 
 /**
- * DicPriority
+ * Resolution
  *
  * @ORM\Table(name="magecore_testtask_resolution")
  * @ORM\Entity

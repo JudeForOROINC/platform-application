@@ -100,10 +100,11 @@ class IssueType extends AbstractType
         )
         ->add(
             'resolution',
-            'textarea',
+            'entity',
             [
                 'label'        => 'field.resolution.label',
-                'required'     => false
+                'required'     => false,
+                'class'         => 'MagecoreTestTaskOroBundle:Resolution',
             ]
         )
         ;

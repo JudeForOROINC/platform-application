@@ -64,10 +64,7 @@ class Priority
      */
     protected $label;
 
-    /**
-     * @Gedmo\Locale
-     */
-    protected $locale;
+
 
     /**
      * @param string $name
@@ -87,7 +84,7 @@ class Priority
 
     /**
      * @param string $label
-     * @return CasePriority
+     * @return Priority
      */
     public function setLabel($label)
     {
@@ -116,7 +113,7 @@ class Priority
      * Set order
      *
      * @param string $order
-     * @return CasePriority
+     * @return Priority
      */
     public function setOrder($order)
     {
@@ -125,28 +122,28 @@ class Priority
         return $this;
     }
 
-    /**
-     * Set locale
-     *
-     * @param string $locale
-     * @return CasePriority
-     */
-    public function setLocale($locale)
-    {
-        $this->locale = $locale;
-
-        return $this;
-    }
-
-    /**
-     * Returns locale code
-     *
-     * @return string
-     */
-    public function getLocale()
-    {
-        return $this->locale;
-    }
+//    /**
+//     * Set locale
+//     *
+//     * @param string $locale
+//     * @return Priority
+//     */
+//    public function setLocale($locale)
+//    {
+//        $this->locale = $locale;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Returns locale code
+//     *
+//     * @return string
+//     */
+//    public function getLocale()
+//    {
+//        return $this->locale;
+//    }
 
     /**
      * @return string

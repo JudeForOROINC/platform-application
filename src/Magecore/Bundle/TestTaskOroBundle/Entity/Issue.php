@@ -202,11 +202,11 @@ class Issue extends ExtendIssue
 //     */
 //    private $status;
 
-//    /**
-//     * @ORM\ManyToOne(targetEntity="DicResolution")
-//     * @ORM\JoinColumn(name="resolution_id", referencedColumnName="id")
-//     */
-//    private $resolution;
+    /**
+     * @ORM\ManyToOne(targetEntity="Resolution")
+     * @ORM\JoinColumn(name="resolution_id", referencedColumnName="id", onDelete="SET NULL")
+     */
+    private $resolution;
 
     /**
      * @var \DateTime
@@ -493,7 +493,7 @@ class Issue extends ExtendIssue
 
     /**
      * @param User $assignee
-     * @return CaseEntity
+     * @return Issue
      */
     public function setAssignedTo($assignee)
     {
@@ -532,28 +532,28 @@ class Issue extends ExtendIssue
         return $this->reporter;
     }
 
-//    /**
-//     * Set resolution
-//     *
-//     * @param \Magecore\Bundle\TestTaskBundle\Entity\DicResolution $resolution
-//     * @return Issue
-//     */
-//    public function setResolution(\Magecore\Bundle\TestTaskBundle\Entity\DicResolution $resolution = null)
-//    {
-//        $this->resolution = $resolution;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * Get resolution
-//     *
-//     * @return \Magecore\Bundle\TestTaskBundle\Entity\DicResolution
-//     */
-//    public function getResolution()
-//    {
-//        return $this->resolution;
-//    }
+    /**
+     * Set resolution
+     *
+     * @param Resolution $resolution
+     * @return Issue
+     */
+    public function setResolution(Resolution $resolution = null)
+    {
+        $this->resolution = $resolution;
+
+        return $this;
+    }
+
+    /**
+     * Get resolution
+     *
+     * @return Resolution
+     */
+    public function getResolution()
+    {
+        return $this->resolution;
+    }
 
 //    /**
 //     * Add children

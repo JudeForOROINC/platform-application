@@ -37,7 +37,7 @@ class LoadResolutionData extends AbstractTranslatableEntityFixture implements Fi
         $resolutionRepository = $manager->getRepository('MagecoreTestTaskOroBundle:Resolution');
         foreach ($this->resolutionNames as $resolutionName) {
             /** @var Resolution $issueResolution */
-            $issueResolution = $resolutionRepository->findOneBy(array('name' => $resolutionName));
+            $issueResolution = $resolutionRepository->findOneBy(array('value' => $resolutionName));
             if (!$issueResolution) {
                 $issueResolution = new Resolution($resolutionName);
                 $issueResolution->setValue($resolutionName);
