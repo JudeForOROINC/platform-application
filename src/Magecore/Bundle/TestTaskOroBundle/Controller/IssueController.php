@@ -34,7 +34,8 @@ class IssueController extends Controller
      *     permission="VIEW"
      * )
      */
-    public function indexAction(){
+    public function indexAction()
+    {
         return array('entity_class'=>'MagecoreTestTaskOroBundle\Entity\Issue');
     }
     /**
@@ -74,7 +75,7 @@ class IssueController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            if (!$issue->getReporter()){
+            if (!$issue->getReporter()) {
                 $issue->setReporter($this->getCurrentUser());
             }
             $entityManager->persist($issue);
@@ -103,7 +104,8 @@ class IssueController extends Controller
      * @Template
      * @AclAncestor("magecore_testtastoro.issue_view")
      */
-    public function viewAction(Issue $issue){
+    public function viewAction(Issue $issue)
+    {
         return array('entity' => $issue);
     }
 
