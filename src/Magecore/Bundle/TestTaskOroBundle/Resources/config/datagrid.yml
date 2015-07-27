@@ -11,6 +11,8 @@ datagrid:
                     - v.code
                     - issuePriority.label as priorityLabel
                     - issueResolution.value as resolutionLabel
+                    - CONCAT(owner.firstName, CONCAT(' ', owner.lastName)) as ownerName
+                    - owner.id as ownerId
                     - CONCAT(assignedTo.firstName, CONCAT(' ', assignedTo.lastName)) as assigneeName
                     - assignedTo.id as assignedToId
                     - v.createdAt
@@ -23,6 +25,7 @@ datagrid:
                         - { join: v.priority, alias: issuePriority }
                         - { join: v.resolution, alias: issueResolution }
                         - { join: v.assignedTo, alias: assignedTo }
+                        - { join: v.reporter, alias: owner }
         columns:
             code:
                 label: '# code'
@@ -34,6 +37,11 @@ datagrid:
                 label: priority
             resolutionLabel:
                 label: resolution
+            ownerName:
+                type:          twig
+                label:         reporter
+                frontend_type: html
+                template:      MagecoreTestTaskOroBundle:Issue:Datagrid/Property/reporter.html.twig
             assigneeName:
                 type:          twig
                 label:         assignee
