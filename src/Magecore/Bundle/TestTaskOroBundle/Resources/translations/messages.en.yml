@@ -53,4 +53,7 @@ magecore:
             description.label:          Description
             code.label:                 Code
             type.label:                 Type
-            priority.label:                 Type
+            priority.label:             Priority
+            resolution.label:           Resolution
+            reporter.label:             Reporter
+            assigned_to.label:          Assignee

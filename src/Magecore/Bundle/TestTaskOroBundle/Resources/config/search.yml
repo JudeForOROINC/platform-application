@@ -30,9 +30,34 @@ Magecore\Bundle\TestTaskOroBundle\Entity\Issue:
             target_fields:          [resolution]
         -
             name:                   reporter
-            target_type:            text
-            target_fields:          [reporter]
+            relation_type:          many-to-one
+            relation_fields:
+                -
+                    name:           username
+                    target_type:    text
+                    target_fields:  [username]
+                -
+                    name: firstName
+                    target_type: text
+                    target_fields: [firstName]
+                -
+                    name: lastName
+                    target_type: text
+                    target_fields: [lastName]
         -
             name:                   assignedTo
-            target_type:            text
-            target_fields:          [assignedTo]
+            relation_type:          many-to-one
+            relation_fields:
+                -
+                    name:           username
+                    target_type:    text
+                    target_fields:  [username]
+                -
+                    name: firstName
+                    target_type: text
+                    target_fields: [firstName]
+                -
+                    name: lastName
+                    target_type: text
+                    target_fields: [lastName]
+
