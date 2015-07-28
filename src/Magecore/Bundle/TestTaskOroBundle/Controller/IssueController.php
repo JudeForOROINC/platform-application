@@ -62,12 +62,15 @@ class IssueController extends Controller
      *     class="MagecoreTestTaskOroBundle:Issue",
      *     permission="CREATE"
      * )
+     * @param Issue $issue
+     * @param Request $request
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function createSubTaskAction(Issue $issue, Request $request)
     {
         $issueSubTask = new Issue();
         $issueSubTask->setParentIssue($issue);
-        $issueSubTask->setType($issue::ISSUE_TYPE_SUBTASK);
+        $issueSubTask->setType($issueSubTask::ISSUE_TYPE_SUBTASK);
         return $this->update(new Issue(), $request);
     }
 
