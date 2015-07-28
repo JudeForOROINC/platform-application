@@ -4,7 +4,7 @@ namespace Magecore\Bundle\TestTaskOroBundle\Tests\Unit\Entity;
 
 use Magecore\Bundle\TestTaskOroBundle\Entity\Resolution;
 
-class PriorityTest extends \PHPUnit_Framework_TestCase
+class ResolutionTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Resolution
@@ -38,4 +38,29 @@ class PriorityTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($value, $this->entity->getId());
     }
 
+    /**
+     * @param $property
+     * @param $value
+     * @dataProvider settersAndGettersDataProvider
+     */
+    public function testSettersAndGetters($property, $value)
+    {
+        $obj = $this->entity;
+
+        call_user_func_array(array($obj, 'set' . ucfirst($property)), array($value));
+        $this->assertEquals($value, call_user_func_array(array($obj, 'get' . ucfirst($property)), array()));
+    }
+
+    public function settersAndGettersDataProvider()
+    {
+        return array(
+            array('value', 'Fixed'),
+        );
+    }
+    public function testToString()
+    {
+        $entity = $this->entity;
+        $entity->setValue('Fixed');
+        $this->assertEquals($entity->getValue(), (string)$entity);
+    }
 }

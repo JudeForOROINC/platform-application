@@ -1,12 +1,12 @@
 Magecore\Bundle\TestTaskOroBundle\Entity\Issue:
-    alias:                          orocrm_task
+    alias:                          magecore_testtaskoro_issue
     label:                          Demo products
     title_fields:                   [summary]
     route:
         name:                       magecore_testtastoro.issue_view
         parameters:
             id:                     id
-    search_template:                OroCRMTaskBundle:Search:result.html.twig
+    search_template:                MagecoreTestTaskOroBundle:Search:result.html.twig
     fields:
         -
             name:                   summary
@@ -16,3 +16,23 @@ Magecore\Bundle\TestTaskOroBundle\Entity\Issue:
             name:                   description
             target_type:            text
             target_fields:          [description]
+        -
+            name:                   type
+            target_type:            text
+            target_fields:          [type]
+        -
+            name:                   priority
+            target_type:            text
+            target_fields:          [priority]
+        -
+            name:                   resolution
+            target_type:            text
+            target_fields:          [resolution]
+        -
+            name:                   reporter
+            target_type:            text
+            target_fields:          [reporter]
+        -
+            name:                   assignedTo
+            target_type:            text
+            target_fields:          [assignedTo]

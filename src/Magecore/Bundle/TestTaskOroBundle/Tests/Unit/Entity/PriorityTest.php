@@ -13,7 +13,7 @@ class PriorityTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->entity = new Priority();
+        $this->entity = new Priority('name');
     }
 
     protected function tearDown()
@@ -24,7 +24,7 @@ class PriorityTest extends \PHPUnit_Framework_TestCase
     protected function setId($value)
     {
         $r = new \ReflectionClass($this->entity);
-        $prop = $r->getProperty('id');
+        $prop = $r->getProperty('name');
         $prop->setAccessible(true);
         $prop->setValue($this->entity, $value);
         $prop->setAccessible(false);
@@ -32,10 +32,38 @@ class PriorityTest extends \PHPUnit_Framework_TestCase
 
     public function testId()
     {
-        $this->assertNull($this->entity->getId());
-        $value = 1;
+        $this->assertEquals('name', $this->entity->getName());
+        $value = 'low';
         $this->setId($value);
-        $this->assertEquals($value, $this->entity->getId());
+        $this->assertEquals($value, $this->entity->getName());
     }
+
+    /**
+     * @param $property
+     * @param $value
+     * @dataProvider settersAndGettersDataProvider
+     */
+    public function testSettersAndGetters($property, $value)
+    {
+        $obj = $this->entity;
+
+        call_user_func_array(array($obj, 'set' . ucfirst($property)), array($value));
+        $this->assertEquals($value, call_user_func_array(array($obj, 'get' . ucfirst($property)), array()));
+    }
+
+    public function settersAndGettersDataProvider()
+    {
+        return array(
+            array('order', 2),
+            array('label', 'Low priority'),
+        );
+    }
+    public function testToString()
+    {
+        $entity = $this->entity;
+        $entity->setLabel('Low priority');
+        $this->assertEquals($entity->getLabel(), (string)$entity);
+    }
+
 
 }

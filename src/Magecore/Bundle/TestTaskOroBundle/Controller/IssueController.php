@@ -75,9 +75,9 @@ class IssueController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            if (!$issue->getReporter()) {
-                $issue->setReporter($this->getCurrentUser());
-            }
+//            if (!$issue->getReporter()) {
+//                $issue->setReporter($this->getCurrentUser());
+//            }
             $entityManager->persist($issue);
             $entityManager->flush();
 

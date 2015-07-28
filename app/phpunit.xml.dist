@@ -14,12 +14,15 @@
         bootstrap                   = "tests/bootstrap.php"
         >
     <testsuites>
-        <testsuite name="Project Unit Tests">
-            <directory suffix="Test.php">src/Magecore/Bundle/*Bundle/Tests/Unit</directory>
+        <testsuite name="Project Tests Suite">
+            <directory>../src/*/*Bundle/Tests/Functional</directory>
+            <directory>../src/*/Bundle/*Bundle/Tests/Functional</directory>
+            <directory>../src/*/*Bundle/Tests/Unit</directory>
+            <directory>../src/*/Bundle/*Bundle/Tests/Unit</directory>
         </testsuite>
     </testsuites>
     <testsuites>
-        <testsuite name="Project Test Suite">
+        <testsuite name="Project Functional Test Suite">
             <directory>../src/*/*Bundle/Tests/Functional</directory>
             <directory>../src/*/Bundle/*Bundle/Tests/Functional</directory>
         </testsuite>
@@ -28,6 +31,7 @@
             <directory>../src/*/Bundle/*Bundle/Tests/Unit</directory>
         </testsuite>
     </testsuites>
+
 
     <!--
     <php>
@@ -39,10 +43,9 @@
             <directory>../src</directory>
             <exclude>
                 <directory>../src/Magecore/Bundle/*Bundle/Migrations</directory>
-                <directory>../src/Magecore/Bundle/*Bundle/DataFixtures</directory>
                 <directory>../src/Magecore/Bundle/*Bundle/Resources</directory>
                 <directory>../src/Magecore/Bundle/*Bundle/Tests</directory>
-                <directory>../src/Magecore/Bundle/*Bundle/Model</directory>
+
             </exclude>
         </whitelist>
     </filter>

@@ -52,7 +52,17 @@ use Oro\Bundle\UserBundle\Model\ExtendUser;
  *   defaultValues={
  *          "security"={
  *              "type"="ACL"
- *          }
+ *          },
+ *          "entity"={
+ *              "icon"="icon-beer"
+ *          },
+ *          "ownership"={
+ *              "owner_type"="USER",
+ *              "owner_field_name"="reporter",
+ *              "owner_column_name"="reporter_id",
+ *              "organization_field_name"="organization",
+ *              "organization_column_name"="organization_id"
+ *          },
  * }
  * )
  * @JMS\ExclusionPolicy("ALL")
@@ -230,6 +240,14 @@ class Issue extends ExtendIssue
 //     */
 //    private $parentIssue;
 
+    /**
+     * @var Organization
+     *
+     * @ORM\ManyToOne(targetEntity="Oro\Bundle\OrganizationBundle\Entity\Organization")
+     * @ORM\JoinColumn(name="organization_id", referencedColumnName="id", onDelete="SET NULL")
+     */
+    protected $organization;
+
 
     const ISSUE_TYPE_STORY = 'Story';
     const ISSUE_TYPE_BUG = 'Bug';
@@ -273,6 +291,29 @@ class Issue extends ExtendIssue
         $this->code = $code;
 
         return $this;
+    }
+
+    /**
+     * Set organization
+     *
+     * @param Organization $organization
+     * @return Issue
+     */
+    public function setOrganization(Organization $organization = null)
+    {
+        $this->organization = $organization;
+
+        return $this;
+    }
+
+    /**
+     * Get organization
+     *
+     * @return Organization
+     */
+    public function getOrganization()
+    {
+        return $this->organization;
     }
 
     /**
@@ -526,6 +567,15 @@ class Issue extends ExtendIssue
      * @return User
      */
     public function getReporter()
+    {
+        return $this->reporter;
+    }
+
+
+    /**
+     * @return User
+     */
+    public function getOwner()
     {
         return $this->reporter;
     }
