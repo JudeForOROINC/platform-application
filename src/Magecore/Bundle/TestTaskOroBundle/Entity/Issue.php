@@ -52,7 +52,17 @@ use Oro\Bundle\UserBundle\Model\ExtendUser;
  *   defaultValues={
  *          "security"={
  *              "type"="ACL"
- *          }
+ *          },
+ *          "entity"={
+ *              "icon"="icon-beer"
+ *          },
+ *          "ownership"={
+ *              "owner_type"="USER",
+ *              "owner_field_name"="reporter",
+ *              "owner_column_name"="reporter_id",
+ *              "organization_field_name"="organization",
+ *              "organization_column_name"="organization_id"
+ *          },
  * }
  * )
  * @JMS\ExclusionPolicy("ALL")
@@ -173,10 +183,6 @@ class Issue extends ExtendIssue
      */
     private $description;
 
-
-    //const ISSUE_PARENT_TYPES = [ self::ISSUE_TYPE_STORY, self::ISSUE_TYPE_BUG, self::ISSUE_TYPE_TASK];
-
-
     /**
      * @ORM\Column(name="issue_type", type="string", length=30)
      */
@@ -218,7 +224,6 @@ class Issue extends ExtendIssue
     /**
      * @var \DateTime
      *
-
      * @ORM\Column(name="updatedAt", type="datetime")
      */
     private $updatedAt;
@@ -234,6 +239,14 @@ class Issue extends ExtendIssue
 //     * @ORM\JoinColumn(name="parent_issue_id", referencedColumnName="id", onDelete="CASCADE")
 //     */
 //    private $parentIssue;
+
+    /**
+     * @var Organization
+     *
+     * @ORM\ManyToOne(targetEntity="Oro\Bundle\OrganizationBundle\Entity\Organization")
+     * @ORM\JoinColumn(name="organization_id", referencedColumnName="id", onDelete="SET NULL")
+     */
+    protected $organization;
 
 
     const ISSUE_TYPE_STORY = 'Story';
@@ -278,6 +291,29 @@ class Issue extends ExtendIssue
         $this->code = $code;
 
         return $this;
+    }
+
+    /**
+     * Set organization
+     *
+     * @param Organization $organization
+     * @return Issue
+     */
+    public function setOrganization(Organization $organization = null)
+    {
+        $this->organization = $organization;
+
+        return $this;
+    }
+
+    /**
+     * Get organization
+     *
+     * @return Organization
+     */
+    public function getOrganization()
+    {
+        return $this->organization;
     }
 
     /**
@@ -342,8 +378,11 @@ class Issue extends ExtendIssue
      * @param integer $type
      * @return Issue
      */
-    protected function isValidType($type){
-        return in_array( $type ,[self::ISSUE_TYPE_STORY,self::ISSUE_TYPE_BUG, self::ISSUE_TYPE_SUBTASK, self::ISSUE_TYPE_TASK]);
+    protected function isValidType($type)
+    {
+        return in_array($type, [
+            self::ISSUE_TYPE_STORY,
+            self::ISSUE_TYPE_BUG, self::ISSUE_TYPE_SUBTASK, self::ISSUE_TYPE_TASK]);
     }
 
     /**
@@ -421,28 +460,28 @@ class Issue extends ExtendIssue
         return $this->priority;
     }
 
-    /**
-     * Set status
-     *
-     * @param integer $status
-     * @return Issue
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
-    /**
-     * Get status
-     *
-     * @return integer
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
+//    /**
+//     * Set status
+//     *
+//     * @param integer $status
+//     * @return Issue
+//     */
+//    public function setStatus($status)
+//    {
+//        $this->status = $status;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Get status
+//     *
+//     * @return integer
+//     */
+//    public function getStatus()
+//    {
+//        return $this->status;
+//    }
 
 
     /**
@@ -487,8 +526,8 @@ class Issue extends ExtendIssue
        // $this->collaborators = new \Doctrine\Common\Collections\ArrayCollection();
        // $this->activities = new \Doctrine\Common\Collections\ArrayCollection();
         //$this->created = new
-        $this->created = new \DateTime();
-        $this->updated = new \DateTime();
+        //$this->createdAt = new \DateTime('now', new \DateTimeZone('UTC'));
+       // $this->updatedAt = new \DateTime('now', new \DateTimeZone('UTC'));
     }
 
     /**
@@ -528,6 +567,15 @@ class Issue extends ExtendIssue
      * @return User
      */
     public function getReporter()
+    {
+        return $this->reporter;
+    }
+
+
+    /**
+     * @return User
+     */
+    public function getOwner()
     {
         return $this->reporter;
     }
@@ -706,7 +754,7 @@ class Issue extends ExtendIssue
         /** @var EntityManager $man */
         $man = $args->getObjectManager();
         $unit = $man->getUnitOfWork();
-        $unit->scheduleExtraUpdate($this,array('code'=>array('none',$this->code)));
+        $unit->scheduleExtraUpdate($this, array('code'=>array('none', $this->code)));
 
     }
 

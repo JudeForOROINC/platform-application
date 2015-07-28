@@ -1,5 +1,5 @@
-orocrm:
-    task:
+magecore:
+    testtaskoro:
         menu:
             task_list.description:  List of tasks
             my_tasks: My Tasks
@@ -7,7 +7,7 @@ orocrm:
         #
         # OroCRM/Bundle/TaskBundle/Entity/Task
         #
-        entity_label:               Task
+        entity_label:               Issue
         entity_plural_label:        Tasks
         entity_description:         Represent task
         subject.label:              Subject
@@ -46,3 +46,14 @@ orocrm:
             label.label: Label
             name.label: Name
             order.label: Order
+        issue:
+            entity_label:               Issue
+            entity_plural_label:        Issues
+            summary.label:              Summary
+            description.label:          Description
+            code.label:                 Code
+            type.label:                 Type
+            priority.label:             Priority
+            resolution.label:           Resolution
+            reporter.label:             Reporter
+            assigned_to.label:          Assignee

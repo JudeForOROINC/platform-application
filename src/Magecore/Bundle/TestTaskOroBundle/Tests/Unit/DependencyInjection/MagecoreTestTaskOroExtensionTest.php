@@ -12,20 +12,16 @@ class MagecoreTestTaskOroExtensionTest extends \PHPUnit_Framework_TestCase
      * @var array
      */
     protected $expectedDefinitions = array(
-        'oro_workflow.configuration_pass.replace_property_path',
-        'oro_workflow.condition_factory',
-        'oro_workflow.action_factory',
-        'oro_workflow.configuration.provider.workflow_config',
+        'magecore_testtaskoro.issue_manager.api',
+        'magecore_testtaskoro.form.type.issue',
+        'orocrm_task.form',
     );
 
     /**
      * @var array
      */
     protected $expectedParameters = array(
-        'oro_workflow.configuration_pass.replace_property_path.class',
-        'oro_workflow.condition_factory.class',
-        'oro_workflow.action_factory.class',
-        'oro_workflow.configuration.provider.workflow_config.class',
+        'magecore_testtaskoro.form.type.task.class',
     );
 
     public function testLoad()
@@ -55,8 +51,10 @@ class MagecoreTestTaskOroExtensionTest extends \PHPUnit_Framework_TestCase
                 )
             );
 
-        $extension = new OroWorkflowExtension();
+        $extension = new MagecoreTestTaskOroExtension();
         $extension->load(array(), $container);
+        //var_dump($actualDefinitions);
+        //var_dump(array_keys($actualParameters));
 
         foreach ($this->expectedDefinitions as $serviceId) {
             $this->assertArrayHasKey($serviceId, $actualDefinitions);
