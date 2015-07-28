@@ -49,3 +49,8 @@ magecore:
         issue:
             entity_label:               Issue
             entity_plural_label:        Issues
+            summary.label:              Summary
+            description.label:          Description
+            code.label:                 Code
+            type.label:                 Type
+            priority.label:                 Type

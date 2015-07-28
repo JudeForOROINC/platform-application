@@ -1,6 +1,9 @@
 {# src/InventoryBundle/Resources/views/Vehicle/view.html.twig #}
 {% extends 'OroUIBundle:actions:view.html.twig' %}
 {% import 'OroUIBundle::macros.html.twig' as UI %}
+{% import 'OroEntityConfigBundle::macros.html.twig' as entityConfig %}
+
+{% oro_title_set({params : {"%entity.subject%": entity.summary|default('N/A') }}) %}
 
 {% block navButtons %}
     {% if resource_granted('EDIT', entity) %}
@@ -37,8 +40,12 @@
     <div class="widget-content">
         <div class="row-fluid form-horizontal">
             <div class="responsive-block">
-                {{ UI.renderProperty('Summary'|trans, entity.summary) }}
-                {{ UI.renderProperty('Description'|trans, entity.description) }}
+                {{ UI.renderProperty('magecore.testtaskoro.issue.summary.label'|trans, entity.summary) }}
+                {{ UI.renderProperty('magecore.testtaskoro.issue.code.label'|trans, entity.code) }}
+                {{ UI.renderProperty('magecore.testtaskoro.issue.description.label'|trans, entity.description) }}
+                {{ UI.renderProperty('magecore.testtaskoro.issue.type.label'|trans, entity.type) }}
+                {{ UI.renderProperty('magecore.testtaskoro.issue.priority.label'|trans, entity.priority) }}
+
                 {{ UI.renderProperty('Bought at'|trans, entity.createdAt|date) }}
             </div>
         </div>

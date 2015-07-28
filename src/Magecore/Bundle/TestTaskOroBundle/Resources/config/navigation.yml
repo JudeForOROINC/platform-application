@@ -1,0 +1,26 @@
+oro_menu_config:
+    items:
+        task_list:
+            label: 'magecore.testtaskoro.issue.entity_plural_label'
+            route: 'magecore_testtaskoro_issue'
+            extras:
+                position: 10
+                routes: ['magecore_testtaskoro.issue_update', 'magecore_testtaskoro.issue_create', 'magecore_testtastoro.issue_view']
+                description: 'magecore.testtaskoro.task.menu.task_list.description'
+
+
+
+    tree:
+        application_menu:
+            children:
+                activities_tab:
+                    children:
+                        task_list: ~
+
+
+oro_titles:
+    magecore_testtaskoro_issue: ~
+    magecore_testtastoro.issue_view: '%%entity.subject%%'
+    magecore_testtaskoro.issue_create: oro.ui.create_entity
+    magecore_testtaskoro.issue_update: '%%entity.subject%% - Edit'
+

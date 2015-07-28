@@ -13,9 +13,9 @@ Magecore\Bundle\TestTaskOroBundle\Entity\Issue:
             target_type:            text
             target_fields:          [summary]
         -
-            name:                   description
+            name:                   code
             target_type:            text
-            target_fields:          [description]
+            target_fields:          [code]
         -
             name:                   type
             target_type:            text
