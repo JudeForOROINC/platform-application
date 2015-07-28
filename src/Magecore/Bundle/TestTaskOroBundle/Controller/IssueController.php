@@ -54,6 +54,23 @@ class IssueController extends Controller
     }
 
     /**
+     * @Route("/{id}/create", name="magecore_testtaskoro.issue_subtask_create", requirements={"id":"\d+"}, defaults={"id":0})
+     * @Template("MagecoreTestTaskOroBundle:Issue:update.html.twig")
+     * @Acl(
+     *     id="magecore_testtaskoro.issue_subtask_create",
+     *     type="entity",
+     *     class="MagecoreTestTaskOroBundle:Issue",
+     *     permission="CREATE"
+     * )
+     */
+    public function createSubTaskAction(Issue $issue, Request $request)
+    {
+        $issueSubTask = new Issue();
+        $issueSubTask->setParent($issue);
+        return $this->update(new Issue(), $request);
+    }
+
+    /**
      * @Route("/update/{id}", name="magecore_testtaskoro.issue_update", requirements={"id":"\d+"}, defaults={"id":0})
      * @Template()
      * @Acl(

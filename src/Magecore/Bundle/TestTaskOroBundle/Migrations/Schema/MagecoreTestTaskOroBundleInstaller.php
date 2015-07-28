@@ -56,11 +56,11 @@ class MagecoreTestTaskOroBundleInstaller implements Installation
     {
         $table = $schema->createTable('magecore_testtaskoro_issue');
         $table->addColumn('id', 'integer', ['autoincrement' => true]);
-        $table->addColumn('organization_id', 'integer', ['notnull' => false]);
+        $table->addColumn('assigned_to_id', 'integer', ['notnull' => false]);
         $table->addColumn('resolution_id', 'integer', ['notnull' => false]);
+        $table->addColumn('organization_id', 'integer', ['notnull' => false]);
         $table->addColumn('priority_name', 'string', ['notnull' => false, 'length' => 16]);
         $table->addColumn('reporter_id', 'integer', ['notnull' => false]);
-        $table->addColumn('assigned_to_id', 'integer', ['notnull' => false]);
         $table->addColumn('summary', 'string', ['length' => 255]);
         $table->addColumn('code', 'string', ['length' => 14]);
         $table->addColumn('description', 'text', []);
@@ -99,14 +99,20 @@ class MagecoreTestTaskOroBundleInstaller implements Installation
     {
         $table = $schema->getTable('magecore_testtaskoro_issue');
         $table->addForeignKeyConstraint(
-            $schema->getTable('oro_organization'),
-            ['organization_id'],
+            $schema->getTable('oro_user'),
+            ['assigned_to_id'],
             ['id'],
             ['onDelete' => 'SET NULL', 'onUpdate' => null]
         );
         $table->addForeignKeyConstraint(
             $schema->getTable('magecore_testtask_resolution'),
             ['resolution_id'],
+            ['id'],
+            ['onDelete' => 'SET NULL', 'onUpdate' => null]
+        );
+        $table->addForeignKeyConstraint(
+            $schema->getTable('oro_organization'),
+            ['organization_id'],
             ['id'],
             ['onDelete' => 'SET NULL', 'onUpdate' => null]
         );
@@ -119,12 +125,6 @@ class MagecoreTestTaskOroBundleInstaller implements Installation
         $table->addForeignKeyConstraint(
             $schema->getTable('oro_user'),
             ['reporter_id'],
-            ['id'],
-            ['onDelete' => 'SET NULL', 'onUpdate' => null]
-        );
-        $table->addForeignKeyConstraint(
-            $schema->getTable('oro_user'),
-            ['assigned_to_id'],
             ['id'],
             ['onDelete' => 'SET NULL', 'onUpdate' => null]
         );

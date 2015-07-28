@@ -228,17 +228,17 @@ class Issue extends ExtendIssue
      */
     private $updatedAt;
 
-//    /**
-//     * @ORM\OneToMany(targetEntity="Issue", mappedBy="parentIssue")
-//     */
-//    protected $children;
+    /**
+     * @ORM\OneToMany(targetEntity="Issue", mappedBy="parentIssue")
+     */
+    protected $children;
 
 
-//    /**
-//     * @ORM\ManyToOne(targetEntity="Issue", inversedBy="children", cascade={"persist", "remove"})
-//     * @ORM\JoinColumn(name="parent_issue_id", referencedColumnName="id", onDelete="CASCADE")
-//     */
-//    private $parentIssue;
+    /**
+     * @ORM\ManyToOne(targetEntity="Issue", inversedBy="children", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="parent_issue_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $parentIssue;
 
     /**
      * @var Organization
@@ -521,7 +521,7 @@ class Issue extends ExtendIssue
      */
     public function __construct()
     {
-      //  $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
        // $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
        // $this->collaborators = new \Doctrine\Common\Collections\ArrayCollection();
        // $this->activities = new \Doctrine\Common\Collections\ArrayCollection();
@@ -603,61 +603,53 @@ class Issue extends ExtendIssue
         return $this->resolution;
     }
 
-//    /**
-//     * Add children
-//     *
-//     * @param \Magecore\Bundle\TestTaskBundle\Entity\Issue $children
-//     * @return Issue
-//     */
-//    public function addChild(\Magecore\Bundle\TestTaskBundle\Entity\Issue $children)
-//    {
-//        $this->children[] = $children;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * Remove children
-//     *
-//     * @param \Magecore\Bundle\TestTaskBundle\Entity\Issue $children
-//     */
-//    public function removeChild(\Magecore\Bundle\TestTaskBundle\Entity\Issue $children)
-//    {
-//        $this->children->removeElement($children);
-//    }
+    /**
+     * @param Issue $children
+     * @return Issue
+     */
+    public function addChild(Issue $children)
+    {
+        $this->children[] = $children;
 
-//    /**
-//     * Get children
-//     *
-//     * @return \Doctrine\Common\Collections\Collection
-//     */
-//    public function getChildren()
-//    {
-//        return $this->children;
-//    }
+        return $this;
+    }
 
-//    /**
-//     * Set parentIssue
-//     *
-//     * @param \Magecore\Bundle\TestTaskBundle\Entity\Issue $parentIssue
-//     * @return Issue
-//     */
-//    public function setParentIssue(\Magecore\Bundle\TestTaskBundle\Entity\Issue $parentIssue = null)
-//    {
-//        $this->parentIssue = $parentIssue;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * Get parentIssue
-//     *
-//     * @return \Magecore\Bundle\TestTaskBundle\Entity\Issue
-//     */
-//    public function getParentIssue()
-//    {
-//        return $this->parentIssue;
-//    }
+    /**
+     * @param Issue $children
+     */
+    public function removeChild(Issue $children)
+    {
+        $this->children->removeElement($children);
+    }
+
+    /**
+     * Get children
+     *
+     * @return Collection
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * @param Issue $parentIssue
+     * @return Issue
+     */
+    public function setParentIssue(Issue $parentIssue = null)
+    {
+        $this->parentIssue = $parentIssue;
+
+        return $this;
+    }
+
+    /**
+     * @return Issue
+     */
+    public function getParentIssue()
+    {
+        return $this->parentIssue;
+    }
 
     public function __toString()
     {
