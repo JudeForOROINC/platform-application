@@ -1,6 +1,9 @@
 {# src/InventoryBundle/Resources/views/Vehicle/update.html.twig #}
 {% extends 'OroUIBundle:actions:update.html.twig' %}
 {% form_theme form with 'OroFormBundle:Form:fields.html.twig' %}
+{% import 'OroEntityConfigBundle::macros.html.twig' as entityConfig %}
+
+{% oro_title_set({params : {"%entity.subject%": entity.summary|default('N/A') }}) %}
 
 {% if form.vars.value.id %}
     {% set formAction = path('magecore_testtaskoro.issue_update', { 'id': form.vars.value.id }) %}
