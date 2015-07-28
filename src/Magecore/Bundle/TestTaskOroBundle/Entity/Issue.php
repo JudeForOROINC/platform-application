@@ -173,10 +173,6 @@ class Issue extends ExtendIssue
      */
     private $description;
 
-
-    //const ISSUE_PARENT_TYPES = [ self::ISSUE_TYPE_STORY, self::ISSUE_TYPE_BUG, self::ISSUE_TYPE_TASK];
-
-
     /**
      * @ORM\Column(name="issue_type", type="string", length=30)
      */
@@ -218,7 +214,6 @@ class Issue extends ExtendIssue
     /**
      * @var \DateTime
      *
-
      * @ORM\Column(name="updatedAt", type="datetime")
      */
     private $updatedAt;
@@ -424,28 +419,28 @@ class Issue extends ExtendIssue
         return $this->priority;
     }
 
-    /**
-     * Set status
-     *
-     * @param integer $status
-     * @return Issue
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
-    /**
-     * Get status
-     *
-     * @return integer
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
+//    /**
+//     * Set status
+//     *
+//     * @param integer $status
+//     * @return Issue
+//     */
+//    public function setStatus($status)
+//    {
+//        $this->status = $status;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Get status
+//     *
+//     * @return integer
+//     */
+//    public function getStatus()
+//    {
+//        return $this->status;
+//    }
 
 
     /**
@@ -490,8 +485,8 @@ class Issue extends ExtendIssue
        // $this->collaborators = new \Doctrine\Common\Collections\ArrayCollection();
        // $this->activities = new \Doctrine\Common\Collections\ArrayCollection();
         //$this->created = new
-        $this->created = new \DateTime();
-        $this->updated = new \DateTime();
+        //$this->createdAt = new \DateTime('now', new \DateTimeZone('UTC'));
+       // $this->updatedAt = new \DateTime('now', new \DateTimeZone('UTC'));
     }
 
     /**

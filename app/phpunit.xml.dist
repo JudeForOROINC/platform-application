@@ -18,6 +18,16 @@
             <directory suffix="Test.php">src/Magecore/Bundle/*Bundle/Tests/Unit</directory>
         </testsuite>
     </testsuites>
+    <testsuites>
+        <testsuite name="Project Test Suite">
+            <directory>../src/*/*Bundle/Tests/Functional</directory>
+            <directory>../src/*/Bundle/*Bundle/Tests/Functional</directory>
+        </testsuite>
+        <testsuite name="Project Unit Test Suite">
+            <directory>../src/*/*Bundle/Tests/Unit</directory>
+            <directory>../src/*/Bundle/*Bundle/Tests/Unit</directory>
+        </testsuite>
+    </testsuites>
 
     <!--
     <php>
@@ -26,13 +36,13 @@
     -->
     <filter>
         <whitelist>
-            <directory>src</directory>
+            <directory>../src</directory>
             <exclude>
-                <directory>vendor</directory>
-                <directory>src/Oro/Bundle/*Bundle/DataFixtures</directory>
-                <directory>src/Oro/Bundle/*Bundle/Resources</directory>
-                <directory>src/Oro/Bundle/*Bundle/Tests</directory>
-                <directory>vendor</directory>
+                <directory>../src/Magecore/Bundle/*Bundle/Migrations</directory>
+                <directory>../src/Magecore/Bundle/*Bundle/DataFixtures</directory>
+                <directory>../src/Magecore/Bundle/*Bundle/Resources</directory>
+                <directory>../src/Magecore/Bundle/*Bundle/Tests</directory>
+                <directory>../src/Magecore/Bundle/*Bundle/Model</directory>
             </exclude>
         </whitelist>
     </filter>
