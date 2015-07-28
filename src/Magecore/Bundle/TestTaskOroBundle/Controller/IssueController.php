@@ -71,7 +71,7 @@ class IssueController extends Controller
         $issueSubTask = new Issue();
         $issueSubTask->setParentIssue($issue);
         $issueSubTask->setType($issueSubTask::ISSUE_TYPE_SUBTASK);
-        return $this->update(new Issue(), $request);
+        return $this->update($issueSubTask, $request);
     }
 
     /**

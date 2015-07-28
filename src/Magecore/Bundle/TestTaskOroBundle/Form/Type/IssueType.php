@@ -41,7 +41,7 @@ class IssueType extends AbstractType
         if (isset($options['data'])) {
             if (get_class($options['data']) == 'Magecore\Bundle\TestTaskOroBundle\Entity\Issue') {
                 if ($options['data']->getId() == 0) {
-                    if (!($options['data']->getParentIssue())) {
+                    if ($options['data']->getParentIssue()) {
                         //do nothing.
                         $arr = null;
                     } else {
