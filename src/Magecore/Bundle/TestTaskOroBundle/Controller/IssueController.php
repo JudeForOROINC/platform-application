@@ -118,5 +118,4 @@ class IssueController extends Controller
 
         return $token ? $token->getUser() : null;
     }
-
 }

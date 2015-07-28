@@ -342,8 +342,11 @@ class Issue extends ExtendIssue
      * @param integer $type
      * @return Issue
      */
-    protected function isValidType($type){
-        return in_array( $type ,[self::ISSUE_TYPE_STORY,self::ISSUE_TYPE_BUG, self::ISSUE_TYPE_SUBTASK, self::ISSUE_TYPE_TASK]);
+    protected function isValidType($type)
+    {
+        return in_array($type, [
+            self::ISSUE_TYPE_STORY,
+            self::ISSUE_TYPE_BUG, self::ISSUE_TYPE_SUBTASK, self::ISSUE_TYPE_TASK]);
     }
 
     /**
@@ -706,7 +709,7 @@ class Issue extends ExtendIssue
         /** @var EntityManager $man */
         $man = $args->getObjectManager();
         $unit = $man->getUnitOfWork();
-        $unit->scheduleExtraUpdate($this,array('code'=>array('none',$this->code)));
+        $unit->scheduleExtraUpdate($this, array('code'=>array('none', $this->code)));
 
     }
 

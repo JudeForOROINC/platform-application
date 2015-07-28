@@ -87,16 +87,16 @@ class IssueType extends AbstractType
         }
         $builder
         ->add(
-        'priority',
-        'entity',
-        [
+            'priority',
+            'entity',
+            [
             'label'         => 'field.priority.label',
             'class'         => 'MagecoreTestTaskOroBundle:Priority',
             'query_builder' => function (EntityRepository $entityRepository) {
                 return $entityRepository->createQueryBuilder('priority')
                     ->orderBy('priority.order', 'ASC');
             }
-        ]
+            ]
         )
         ->add(
             'resolution',
