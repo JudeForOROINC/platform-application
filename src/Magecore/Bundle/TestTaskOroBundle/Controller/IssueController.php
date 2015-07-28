@@ -66,7 +66,7 @@ class IssueController extends Controller
     public function createSubTaskAction(Issue $issue, Request $request)
     {
         $issueSubTask = new Issue();
-        $issueSubTask->setParent($issue);
+        $issueSubTask->setParentIssue($issue);
         return $this->update(new Issue(), $request);
     }
 
@@ -92,9 +92,6 @@ class IssueController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-//            if (!$issue->getReporter()) {
-//                $issue->setReporter($this->getCurrentUser());
-//            }
             $entityManager->persist($issue);
             $entityManager->flush();
 

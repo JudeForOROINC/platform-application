@@ -27,7 +27,6 @@ class IssueType extends AbstractType
         $builder
             ->add('summary', null, array('label'=>'field.summary.issue'))
             ->add('description', null, array('label'=>'field.description'))
-           // ->add('assignee', null, array('label'=>'field.assigned'))
         ;
         $builder
             ->add(
@@ -38,37 +37,17 @@ class IssueType extends AbstractType
                     'label'         => 'field.assignee',
                 ]
             );
-//        if (isset($options['projects'])&& count($options['projects'])) {
-//            $pro = array();
-//            if (count($options['projects'])==1) {
-//                $options['data']->setProject($options['projects'][0]);
-//            } else {
-//                foreach ($options['projects'] as $project) {
-//                    $pro[$project->getId()] = (string)$project;
-//                }
-//                $builder->add(
-//                    'project',
-//                    'entity',
-//                    array(
-//                        'choices' => $options['projects'],
-//                        'label' => 'field.project',
-//                        'class' => 'Magecore\Bundle\TestTaskBundle\Entity\Project'
-//                    )
-//                );
-//            }
-//
-//        }
 
         if (isset($options['data'])) {
             if (get_class($options['data']) == 'Magecore\Bundle\TestTaskOroBundle\Entity\Issue') {
                 if ($options['data']->getId() == 0) {
-//                    if (!empty($options['data']->getParentIssue())) {
-//                        //do nothing.
-//                        $arr = null;
-//                    } else {
+                    if (!($options['data']->getParentIssue())) {
+                        //do nothing.
+                        $arr = null;
+                    } else {
                         $arr = $options['data']->getParentTypes();
                         $arr = array_combine($arr, $arr);
-//                    }
+                    }
                 }
             }
 
@@ -108,16 +87,6 @@ class IssueType extends AbstractType
             ]
         )
         ;
-//        $builder
-//            ->add('priority', 'entity', array('label'=>'field.priority',
-//                'class' => 'Magecore\Bundle\TestTaskBundle\Entity\DicPriority',
-//                'query_builder' => function (EntityRepository $er) {
-//                    return $er->createQueryBuilder('p')->orderBy('p.sortOrder', 'ASC');
-//                }
-//            ))
-//            ->add('status', null, array('label'=>'field.status'))
-//            ->add('resolution', null, array('label'=>'field.resolution'))
-//        ;
     }
 
     /**
