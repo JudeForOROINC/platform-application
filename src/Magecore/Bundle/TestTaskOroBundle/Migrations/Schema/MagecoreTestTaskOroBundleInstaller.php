@@ -26,11 +26,25 @@ class MagecoreTestTaskOroBundleInstaller implements Installation
     public function up(Schema $schema, QueryBag $queries)
     {
         /** Tables generation **/
+        $this->createMagecoreTesttaskResolutionTable($schema);
         $this->createMagecoreTesttaskoroIssueTable($schema);
         $this->createMagecoreTesttaskoroPriorityTable($schema);
 
         /** Foreign keys generation **/
         $this->addMagecoreTesttaskoroIssueForeignKeys($schema);
+    }
+
+    /**
+     * Create magecore_testtask_resolution table
+     *
+     * @param Schema $schema
+     */
+    protected function createMagecoreTesttaskResolutionTable(Schema $schema)
+    {
+        $table = $schema->createTable('magecore_testtask_resolution');
+        $table->addColumn('id', 'integer', ['autoincrement' => true]);
+        $table->addColumn('value', 'string', ['length' => 255]);
+        $table->setPrimaryKey(['id']);
     }
 
     /**
@@ -42,6 +56,7 @@ class MagecoreTestTaskOroBundleInstaller implements Installation
     {
         $table = $schema->createTable('magecore_testtaskoro_issue');
         $table->addColumn('id', 'integer', ['autoincrement' => true]);
+        $table->addColumn('resolution_id', 'integer', ['notnull' => false]);
         $table->addColumn('priority_name', 'string', ['notnull' => false, 'length' => 16]);
         $table->addColumn('reporter_id', 'integer', ['notnull' => false]);
         $table->addColumn('assigned_to_id', 'integer', ['notnull' => false]);
@@ -56,6 +71,7 @@ class MagecoreTestTaskOroBundleInstaller implements Installation
         $table->addIndex(['reporter_id'], 'IDX_CF2A577BE1CFE6F5', []);
         $table->addIndex(['assigned_to_id'], 'IDX_CF2A577BF4BD7827', []);
         $table->addIndex(['priority_name'], 'IDX_CF2A577B965BD3DF', []);
+        $table->addIndex(['resolution_id'], 'IDX_CF2A577B12A1C43A', []);
     }
 
     /**
@@ -80,6 +96,12 @@ class MagecoreTestTaskOroBundleInstaller implements Installation
     protected function addMagecoreTesttaskoroIssueForeignKeys(Schema $schema)
     {
         $table = $schema->getTable('magecore_testtaskoro_issue');
+        $table->addForeignKeyConstraint(
+            $schema->getTable('magecore_testtask_resolution'),
+            ['resolution_id'],
+            ['id'],
+            ['onDelete' => 'SET NULL', 'onUpdate' => null]
+        );
         $table->addForeignKeyConstraint(
             $schema->getTable('magecore_testtaskoro_priority'),
             ['priority_name'],
