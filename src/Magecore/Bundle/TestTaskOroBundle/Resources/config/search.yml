@@ -37,27 +37,43 @@ Magecore\Bundle\TestTaskOroBundle\Entity\Issue:
                     target_type:    text
                     target_fields:  [username]
                 -
-                    name: firstName
-                    target_type: text
-                    target_fields: [firstName]
+                    name:           firstName
+                    target_type:    text
+                    target_fields:  [firstName]
                 -
-                    name: lastName
-                    target_type: text
-                    target_fields: [lastName]
+                    name:           lastName
+                    target_type:    text
+                    target_fields:  [lastName]
+                -
+                    name:           namePrefix
+                    target_type:    text
+                    target_fields:  [namePrefix]
+                -
+                    name:           nameSuffix
+                    target_type:    text
+                    target_fields:  [nameSuffix]
         -
             name:                   assignedTo
             relation_type:          many-to-one
             relation_fields:
                 -
-                    name:           username
-                    target_type:    text
-                    target_fields:  [username]
+                    name:                   namePrefix
+                    target_type:            text
+                    target_fields:          [namePrefix]
                 -
-                    name: firstName
-                    target_type: text
-                    target_fields: [firstName]
+                    name:                   firstName
+                    target_type:            text
+                    target_fields:          [firstName]
                 -
-                    name: lastName
-                    target_type: text
-                    target_fields: [lastName]
+                    name:                   middleName
+                    target_type:            text
+                    target_fields:          [middleName]
+                -
+                    name:                   lastName
+                    target_type:            text
+                    target_fields:          [lastName]
+                -
+                    name:                   nameSuffix
+                    target_type:            text
+                    target_fields:          [nameSuffix]
 
