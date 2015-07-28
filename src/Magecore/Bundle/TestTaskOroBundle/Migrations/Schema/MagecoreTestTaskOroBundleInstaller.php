@@ -56,11 +56,12 @@ class MagecoreTestTaskOroBundleInstaller implements Installation
     {
         $table = $schema->createTable('magecore_testtaskoro_issue');
         $table->addColumn('id', 'integer', ['autoincrement' => true]);
-        $table->addColumn('assigned_to_id', 'integer', ['notnull' => false]);
+        $table->addColumn('parent_issue_id', 'integer', ['notnull' => false]);
         $table->addColumn('resolution_id', 'integer', ['notnull' => false]);
         $table->addColumn('organization_id', 'integer', ['notnull' => false]);
         $table->addColumn('priority_name', 'string', ['notnull' => false, 'length' => 16]);
         $table->addColumn('reporter_id', 'integer', ['notnull' => false]);
+        $table->addColumn('assigned_to_id', 'integer', ['notnull' => false]);
         $table->addColumn('summary', 'string', ['length' => 255]);
         $table->addColumn('code', 'string', ['length' => 14]);
         $table->addColumn('description', 'text', []);
@@ -74,6 +75,7 @@ class MagecoreTestTaskOroBundleInstaller implements Installation
         $table->addIndex(['priority_name'], 'IDX_CF2A577B965BD3DF', []);
         $table->addIndex(['resolution_id'], 'IDX_CF2A577B12A1C43A', []);
         $table->addIndex(['organization_id'], 'IDX_CF2A577B32C8A3DE', []);
+        $table->addIndex(['parent_issue_id'], 'IDX_CF2A577BC1B7095D', []);
     }
 
     /**
@@ -99,10 +101,10 @@ class MagecoreTestTaskOroBundleInstaller implements Installation
     {
         $table = $schema->getTable('magecore_testtaskoro_issue');
         $table->addForeignKeyConstraint(
-            $schema->getTable('oro_user'),
-            ['assigned_to_id'],
+            $schema->getTable('magecore_testtaskoro_issue'),
+            ['parent_issue_id'],
             ['id'],
-            ['onDelete' => 'SET NULL', 'onUpdate' => null]
+            ['onDelete' => 'CASCADE', 'onUpdate' => null]
         );
         $table->addForeignKeyConstraint(
             $schema->getTable('magecore_testtask_resolution'),
@@ -125,6 +127,12 @@ class MagecoreTestTaskOroBundleInstaller implements Installation
         $table->addForeignKeyConstraint(
             $schema->getTable('oro_user'),
             ['reporter_id'],
+            ['id'],
+            ['onDelete' => 'SET NULL', 'onUpdate' => null]
+        );
+        $table->addForeignKeyConstraint(
+            $schema->getTable('oro_user'),
+            ['assigned_to_id'],
             ['id'],
             ['onDelete' => 'SET NULL', 'onUpdate' => null]
         );
