@@ -1,0 +1,14 @@
+Magecore\Bundle\TestTaskOroBundle\Entity\Issue:
+    properties:
+        summary:
+            - NotBlank: ~
+            - Length:
+                max: 255
+        reporter:
+            - NotBlank: ~
+        dueDate:
+            - DateTime: ~
+        priority:
+            - NotBlank: ~
+        type:
+            - NotBlank: ~
