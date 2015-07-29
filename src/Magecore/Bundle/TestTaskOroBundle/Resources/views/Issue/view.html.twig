@@ -65,7 +65,6 @@
                 {%- endset -%}
                 {{ UI.renderHtmlProperty('magecore.testtaskoro.issue.reporter.label'|trans, ownerData) }}
 
-                {#{{ UI.renderProperty('magecore.testtaskoro.issue.reporter.label'|trans, entity.reporter) }}#}
                 {%- set assigneeData -%}
                 {%- if entity.assignedTo -%}
                     {% if resource_granted('oro_user_user_view') %}
@@ -78,7 +77,6 @@
                 {%- endif -%}
                 {%- endset -%}
                 {{ UI.renderHtmlProperty('magecore.testtaskoro.issue.assigned_to.label'|trans, assigneeData) }}
-                {#{{ UI.renderProperty('magecore.testtaskoro.issue.assigned_to.label'|trans, entity.assignedTo) }}#}
 
                 {{ UI.renderProperty('Bought at'|trans, entity.createdAt|date) }}
             </div>
