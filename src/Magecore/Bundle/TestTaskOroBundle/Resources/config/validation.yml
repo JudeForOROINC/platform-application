@@ -6,8 +6,6 @@ Magecore\Bundle\TestTaskOroBundle\Entity\Issue:
                 max: 255
         reporter:
             - NotBlank: ~
-        dueDate:
-            - DateTime: ~
         priority:
             - NotBlank: ~
         type:
