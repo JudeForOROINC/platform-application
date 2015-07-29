@@ -1,2 +1,2 @@
 bundles:
-    - Magecore\Bundle\TestTaskOroBundle\MagecoreTestTaskOroBundle
+    - { name: Magecore\Bundle\TestTaskOroBundle\MagecoreTestTaskOroBundle, priority: 100 }
