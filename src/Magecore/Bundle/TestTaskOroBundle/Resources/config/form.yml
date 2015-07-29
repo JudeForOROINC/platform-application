@@ -1,6 +1,7 @@
 parameters:
     magecore_testtaskoro.form.type.issue.class:               Magecore\Bundle\TestTaskOroBundle\Form\Type\IssueType
     magecore_testtaskoro.form.type.issue.api.class:           Magecore\Bundle\TestTaskOroBundle\Form\Type\IssueApiType
+    magecore_testtaskoro.handler.issue.class:                 Magecore\Bundle\TestTaskOroBundle\Form\Handler\IssueHandler
 
 
 services:
@@ -25,3 +26,12 @@ services:
             - @oro_security.security_facade
         tags:
             - { name: form.type, alias: account }
+    magecore_testtaskoro.form.handler.issue.api:
+        class:                                      %magecore_testtaskoro.handler.issue.class%
+        scope: request
+        arguments:
+            - @magecore_testtaskoro.form.type.issue.api
+            - @request
+            - @doctrine.orm.entity_manager
+        tags:
+            - { name: oro_tag.tag_manager }

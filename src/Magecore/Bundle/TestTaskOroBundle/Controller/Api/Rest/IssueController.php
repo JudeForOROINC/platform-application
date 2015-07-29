@@ -13,6 +13,7 @@ use FOS\RestBundle\Controller\Annotations\RouteResource;
 use Magecore\Bundle\TestTaskOroBundle\Entity\Issue;
 use Magecore\Bundle\TestTaskOroBundle\Form\Type\IssueType;
 use Oro\Bundle\SoapBundle\Controller\Api\Rest\RestController;
+use Oro\Bundle\SoapBundle\Form\Handler\ApiFormHandler;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,11 +49,15 @@ class IssueController extends RestController
 
     public function getForm()
     {
+        return $this->get('magecore_testtaskoro.form.type.issue.api');
     }
 
+    /**
+     * @return ApiFormHandler
+     */
     public function getFormHandler()
     {
-        return $this->get('magecore_testtaskoro.form.type.issue.api');
+        return $this->get('magecore_testtaskoro.form.handler.issue.api');
     }
 
     public function getManager()
