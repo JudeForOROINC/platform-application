@@ -76,7 +76,7 @@ class IssueHandler implements TagHandlerInterface
     {
         $this->manager->persist($entity);
         $this->manager->flush();
-        $this->tagManager->saveTagging($entity);
+//        $this->tagManager->saveTagging($entity);
     }
 
     /**
