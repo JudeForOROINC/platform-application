@@ -5,7 +5,9 @@ namespace Magecore\Bundle\TestTaskOroBundle\Migrations\Schema;
 use Doctrine\DBAL\Schema\Schema;
 use Oro\Bundle\MigrationBundle\Migration\Installation;
 use Oro\Bundle\MigrationBundle\Migration\QueryBag;
-
+use Oro\Bundle\MigrationBundle\Migration\Migration;
+use Oro\Bundle\NoteBundle\Migration\Extension\NoteExtension;
+use Oro\Bundle\NoteBundle\Migration\Extension\NoteExtensionAwareInterface;
 /**
  * @SuppressWarnings(PHPMD.TooManyMethods)
  * @SuppressWarnings(PHPMD.ExcessiveClassLength)
@@ -32,7 +34,10 @@ class MagecoreTestTaskOroBundleInstaller implements Installation
 
         /** Foreign keys generation **/
         $this->addMagecoreTesttaskoroIssueForeignKeys($schema);
+
+
     }
+
 
     /**
      * Create magecore_testtask_resolution table
