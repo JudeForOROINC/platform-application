@@ -10,13 +10,13 @@ services:
         tags:
             - { name: form.type, alias: magecore_testtaskoro_issue }
 
-    orocrm_task.form:
+    magecore_testtaskoro.form.issue.api:
         class: Symfony\Component\Form\Form
         factory_method: createNamed
         factory_service: form.factory
         arguments:
-            - 'magecore_testtaskoro'
-            - 'magecore_testtaskoro'
+            - 'issue'
+            - 'magecore_testtaskoro_issue_api'
 
     magecore_testtaskoro.form.type.issue.api:
         class:                                      %magecore_testtaskoro.form.type.issue.api.class%
@@ -25,12 +25,13 @@ services:
             - @oro_locale.formatter.name
             - @oro_security.security_facade
         tags:
-            - { name: form.type, alias: account }
+            - { name: form.type, alias: magecore_testtaskoro_issue_api }
+
     magecore_testtaskoro.form.handler.issue.api:
         class:                                      %magecore_testtaskoro.handler.issue.class%
         scope: request
         arguments:
-            - @magecore_testtaskoro.form.type.issue.api
+            - @magecore_testtaskoro.form.issue.api
             - @request
             - @doctrine.orm.entity_manager
         tags:

@@ -46,6 +46,6 @@ class IssueApiType extends IssueType
      */
     public function getName()
     {
-        return 'testtaskoro_issue';
+        return 'magecore_testtaskoro_issue_api';
     }
 }
