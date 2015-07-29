@@ -64,8 +64,6 @@ class Priority
      */
     protected $label;
 
-
-
     /**
      * @param string $name
      */
@@ -122,29 +120,6 @@ class Priority
         return $this;
     }
 
-//    /**
-//     * Set locale
-//     *
-//     * @param string $locale
-//     * @return Priority
-//     */
-//    public function setLocale($locale)
-//    {
-//        $this->locale = $locale;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * Returns locale code
-//     *
-//     * @return string
-//     */
-//    public function getLocale()
-//    {
-//        return $this->locale;
-//    }
-
     /**
      * @return string
      */
@@ -153,16 +128,5 @@ class Priority
         return (string)$this->label;
     }
 
-    /**
-     * @param mixed $other
-     * @return bool
-     */
-    public function isEqualTo($other)
-    {
-        if (!$other instanceof CasePriority) {
-            return false;
-        }
 
-        return $this->getName() == $other->getName();
-    }
 }
