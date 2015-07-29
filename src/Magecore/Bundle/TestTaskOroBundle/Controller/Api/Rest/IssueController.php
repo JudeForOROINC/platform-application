@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Oro\Bundle\SecurityBundle\Annotation\Acl;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
 
 /**
  * @RouteResource("issue")
@@ -51,10 +52,25 @@ class IssueController extends RestController
 
     public function getFormHandler()
     {
+        return $this->get('magecore_testtaskoro.form.type.issue.api');
     }
 
     public function getManager()
     {
         return $this->get('magecore_testtaskoro.issue_manager.api');
     }
+
+    /**
+    * @ApiDoc(
+    *      description="Create new account",
+    *      resource=true
+    * )
+    * @AclAncestor("magecore_testtaskoro.issue_create")
+    */
+    public function postAction()
+    {
+        return $this->handleCreateRequest();
+    }
+
+
 }

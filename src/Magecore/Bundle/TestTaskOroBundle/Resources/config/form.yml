@@ -1,10 +1,11 @@
 parameters:
-    magecore_testtaskoro.form.type.task.class:               Magecore\Bundle\TestTaskOroBundle\Form\Type\IssueType
+    magecore_testtaskoro.form.type.issue.class:               Magecore\Bundle\TestTaskOroBundle\Form\Type\IssueType
+    magecore_testtaskoro.form.type.issue.api.class:           Magecore\Bundle\TestTaskOroBundle\Form\Type\IssueApiType
 
 
 services:
     magecore_testtaskoro.form.type.issue:
-        class: %magecore_testtaskoro.form.type.task.class%
+        class: %magecore_testtaskoro.form.type.issue.class%
         tags:
             - { name: form.type, alias: magecore_testtaskoro_issue }
 
@@ -15,3 +16,12 @@ services:
         arguments:
             - 'magecore_testtaskoro'
             - 'magecore_testtaskoro'
+
+    magecore_testtaskoro.form.type.issue.api:
+        class:                                      %magecore_testtaskoro.form.type.issue.api.class%
+        arguments:
+            - @router
+            - @oro_locale.formatter.name
+            - @oro_security.security_facade
+        tags:
+            - { name: form.type, alias: account }
