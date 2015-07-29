@@ -23,6 +23,12 @@
             'entity_label': 'Issues'|trans,
         }) }}
     {% endif %}
+    {% if resource_granted('CREATE', entity) and (entity.story)%}
+        {{ UI.addButton({
+            'path': path('magecore_testtaskoro.issue_subtask_create', {'id': entity.id}),
+            'label': 'Create subtask'
+        }) }}
+    {% endif %}
 {% endblock navButtons %}
 
 {% block pageHeader %}
@@ -46,8 +52,33 @@
                 {{ UI.renderProperty('magecore.testtaskoro.issue.type.label'|trans, entity.type) }}
                 {{ UI.renderProperty('magecore.testtaskoro.issue.priority.label'|trans, entity.priority) }}
                 {{ UI.renderProperty('magecore.testtaskoro.issue.resolution.label'|trans, entity.resolution) }}
-                {{ UI.renderProperty('magecore.testtaskoro.issue.reporter.label'|trans, entity.reporter) }}
-                {{ UI.renderProperty('magecore.testtaskoro.issue.assigned_to.label'|trans, entity.assignedTo) }}
+                {%- set ownerData -%}
+                {%- if entity.reporter -%}
+                    {% if resource_granted('oro_user_user_view') %}
+                        <a href="{{ path('oro_user_view', {'id': entity.reporter.id}) }}">
+                            {{ entity.reporter|oro_format_name|escape }}
+                        </a>
+                    {% else %}
+                        {{ entity.reporter|oro_format_name|escape }}
+                    {% endif %}
+                {%- endif -%}
+                {%- endset -%}
+                {{ UI.renderHtmlProperty('magecore.testtaskoro.issue.reporter.label'|trans, ownerData) }}
+
+                {#{{ UI.renderProperty('magecore.testtaskoro.issue.reporter.label'|trans, entity.reporter) }}#}
+                {%- set assigneeData -%}
+                {%- if entity.assignedTo -%}
+                    {% if resource_granted('oro_user_user_view') %}
+                        <a href="{{ path('oro_user_view', {'id': entity.assignedTo.id}) }}">
+                            {{ entity.assignedTo|oro_format_name|escape }}
+                        </a>
+                    {% else %}
+                        {{ entity.assignedTo|oro_format_name|escape }}
+                    {% endif %}
+                {%- endif -%}
+                {%- endset -%}
+                {{ UI.renderHtmlProperty('magecore.testtaskoro.issue.assigned_to.label'|trans, assigneeData) }}
+                {#{{ UI.renderProperty('magecore.testtaskoro.issue.assigned_to.label'|trans, entity.assignedTo) }}#}
 
                 {{ UI.renderProperty('Bought at'|trans, entity.createdAt|date) }}
             </div>
