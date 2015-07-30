@@ -127,14 +127,5 @@ class IssueController extends Controller
     {
         return array('entity' => $issue);
     }
-
-    /**
-     * @return User
-     */
-    protected function getCurrentUser()
-    {
-        $token = $this->container->get('security.context')->getToken();
-
-        return $token ? $token->getUser() : null;
-    }
 }
+
