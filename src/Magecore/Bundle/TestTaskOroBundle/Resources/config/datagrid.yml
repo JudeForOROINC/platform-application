@@ -134,4 +134,10 @@ datagrid:
                 from:
                     - { table: MagecoreTestTaskOroBundle:Issue, alias: v }
                 where:
-                    - v.parentIssue = :parentId
+                    and:
+                        - v.parentIssue = :parentId
+        columns:
+            code:
+                label: '# code'
+            summary:
+                label: Summary

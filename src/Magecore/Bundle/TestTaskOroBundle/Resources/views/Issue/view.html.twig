@@ -2,6 +2,7 @@
 {% extends 'OroUIBundle:actions:view.html.twig' %}
 {% import 'OroUIBundle::macros.html.twig' as UI %}
 {% import 'OroEntityConfigBundle::macros.html.twig' as entityConfig %}
+{% import 'OroDataGridBundle::macros.html.twig' as dataGrid %}
 
 {% oro_title_set({params : {"%entity.subject%": entity.summary|default('N/A') }}) %}
 
@@ -87,8 +88,12 @@
 
                 {{ UI.renderHtmlProperty('magecore.testtaskoro.issue.parent_issue.label'|trans, parentData) }}
                 {% endif %}
+
                 {% if entity.story %}
-                    {{ 'pum' }}
+                    <div class="row-fluid">
+                        {{ dataGrid.renderGrid('issue-subtask-grid', {parentId: entity.id}) }}
+                    </div>
+
                 {% endif %}
 
             </div>
