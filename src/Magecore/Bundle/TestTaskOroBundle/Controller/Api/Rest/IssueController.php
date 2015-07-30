@@ -77,5 +77,20 @@ class IssueController extends RestController
         return $this->handleCreateRequest();
     }
 
+    /**
+     * @param string $id
+     *
+     * @ApiDoc(
+     *      description="Get account item",
+     *      resource=true
+     * )
+     * @AclAncestor("magecore_testtaskoro.issue_view")
+     * @return Response
+     */
+    public function getAction($id)
+    {
+        return $this->handleGetRequest($id);
+    }
+
 
 }

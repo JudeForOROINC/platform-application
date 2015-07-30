@@ -40,40 +40,22 @@ class IssueControllerTest extends WebTestCase
         return $request;
     }
 
-//    /**
-//     * @param array $request
-//     * @depends testCreate
-//     * @return array
-//     */
-//    public function testGet(array $request)
-//    {
-//        $this->client->request(
-//            'GET',
-//            $this->getUrl('oro_api_get_accounts')
-//        );
-//
-//        $result = $this->getJsonResponseContent($this->client->getResponse(), 200);
-//
-//        $id = $request['id'];
-//        $result = array_filter(
-//            $result,
-//            function ($a) use ($id) {
-//                return $a['id'] == $id;
-//            }
-//        );
-//
-//        $this->assertNotEmpty($result);
-//        $this->assertEquals($request['account']['name'], reset($result)['name']);
-//
-//        $this->client->request(
-//            'GET',
-//            $this->getUrl('oro_api_get_account', array('id' => $request['id']))
-//        );
-//
-//        $result = $this->getJsonResponseContent($this->client->getResponse(), 200);
-//
-//        $this->assertEquals($request['account']['name'], $result['name']);
-//    }
+    /**
+     * @param array $request
+     * @depends testCreate
+     * @return array
+     */
+    public function testGet(array $request)
+    {
+        $this->client->request(
+            'GET',
+            $this->getUrl('magecore_testtaskoro_get_post_issue', array('id' => $request['id']))
+        );
+
+        $result = $this->getJsonResponseContent($this->client->getResponse(), 200);
+
+        $this->assertEquals($request['issue']['code'], $result['code']);
+    }
 //
 //    /**
 //     * @param array $request
