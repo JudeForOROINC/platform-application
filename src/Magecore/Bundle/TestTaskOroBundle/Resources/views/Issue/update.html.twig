@@ -4,6 +4,7 @@
 {% import 'OroEntityConfigBundle::macros.html.twig' as entityConfig %}
 
 {% oro_title_set({params : {"%entity.subject%": entity.summary|default('N/A') }}) %}
+{% oro_title_set({params : {"%entityName%": 'magecore.testtaskoro.issue.entity_label'|trans }}) %}
 
 {% if form.vars.value.id %}
     {% set formAction = path('magecore_testtaskoro.issue_update', { 'id': form.vars.value.id }) %}
