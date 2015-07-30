@@ -14,14 +14,14 @@ class MagecoreTestTaskOroExtensionTest extends \PHPUnit_Framework_TestCase
     protected $expectedDefinitions = array(
         'magecore_testtaskoro.issue_manager.api',
         'magecore_testtaskoro.form.type.issue',
-        'orocrm_task.form',
+
     );
 
     /**
      * @var array
      */
     protected $expectedParameters = array(
-        'magecore_testtaskoro.form.type.task.class',
+        'magecore_testtaskoro.form.type.issue.class',
     );
 
     public function testLoad()

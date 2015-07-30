@@ -1,6 +1,6 @@
 <?php
 
-namespace OroCRM\Bundle\AccountBundle\Tests\Functional\API;
+namespace Magecore\Bundle\TestTaskOroBundle\Tests\Functional\Controller\Api\Rest;
 
 use Oro\Bundle\TestFrameworkBundle\Test\WebTestCase;
 
@@ -8,7 +8,7 @@ use Oro\Bundle\TestFrameworkBundle\Test\WebTestCase;
  * @outputBuffering enabled
  * @dbIsolation
  */
-class RestAccountTest extends WebTestCase
+class IssueControllerTest extends WebTestCase
 {
     protected function setUp()
     {
@@ -18,15 +18,17 @@ class RestAccountTest extends WebTestCase
     public function testCreate()
     {
         $request = array(
-            "account" => array (
-                "name" => 'Account_name_' . mt_rand(),
-                "owner" => '1',
+            "issue" => array (
+                "summary" => 'Issue_name_' . mt_rand(),
+                "type" => 'Bug',
+                "priority" => 'low',
+                "reporter" => '1',
             )
         );
 
         $this->client->request(
             'POST',
-            $this->getUrl('oro_api_post_account'),
+            $this->getUrl('magecore_testtaskoro_api_post_issue'),
             $request
         );
 
