@@ -522,12 +522,6 @@ class Issue extends ExtendIssue
     public function __construct()
     {
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
-       // $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
-       // $this->collaborators = new \Doctrine\Common\Collections\ArrayCollection();
-       // $this->activities = new \Doctrine\Common\Collections\ArrayCollection();
-        //$this->created = new
-        //$this->createdAt = new \DateTime('now', new \DateTimeZone('UTC'));
-       // $this->updatedAt = new \DateTime('now', new \DateTimeZone('UTC'));
     }
 
     /**
@@ -656,77 +650,6 @@ class Issue extends ExtendIssue
         return (string)$this->getCode();
     }
 
-
-//
-//    /**
-//     * Add collaborators
-//     *
-//     * @param \Magecore\Bundle\TestTaskBundle\Entity\User $collaborators
-//     * @return Issue
-//     */
-//    public function addCollaborator(\Magecore\Bundle\TestTaskBundle\Entity\User $collaborator)
-//    {
-//        if (!$this->getCollaborators()->contains($collaborator)) {
-//            $this->collaborators[] = $collaborator;
-//            $collaborator->addIssue($this);
-//        }
-//
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * Remove collaborators
-//     *
-//     * @param \Magecore\Bundle\TestTaskBundle\Entity\User $collaborators
-//     */
-//    public function removeCollaborator(\Magecore\Bundle\TestTaskBundle\Entity\User $collaborators)
-//    {
-//        $this->collaborators->removeElement($collaborators);
-//    }
-//
-//    /**
-//     * Get collaborators
-//     *
-//     * @return \Doctrine\Common\Collections\Collection
-//     */
-//    public function getCollaborators()
-//    {
-//        return $this->collaborators;
-//    }
-
-//    /**
-//     * Add activities
-//     *
-//     * @param \Magecore\Bundle\TestTaskBundle\Entity\Activity $activities
-//     * @return Issue
-//     */
-//    public function addActivity(\Magecore\Bundle\TestTaskBundle\Entity\Activity $activities)
-//    {
-//        $this->activities[] = $activities;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * Remove activities
-//     *
-//     * @param \Magecore\Bundle\TestTaskBundle\Entity\Activity $activities
-//     */
-//    public function removeActivity(\Magecore\Bundle\TestTaskBundle\Entity\Activity $activities)
-//    {
-//        $this->activities->removeElement($activities);
-//    }
-//
-//    /**
-//     * Get activities
-//     *
-//     * @return \Doctrine\Common\Collections\Collection
-//     */
-//    public function getActivities()
-//    {
-//        return $this->activities;
-//    }
 
     /**
      * @ORM\PrePersist
