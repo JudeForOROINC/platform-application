@@ -1,4 +1,4 @@
-{# src/InventoryBundle/Resources/views/Vehicle/view.html.twig #}
+
 {% extends 'OroUIBundle:actions:view.html.twig' %}
 {% import 'OroUIBundle::macros.html.twig' as UI %}
 {% import 'OroEntityConfigBundle::macros.html.twig' as entityConfig %}
@@ -84,10 +84,7 @@
                 {% endif %}
 
                 {% if entity.story %}
-                    {{ UI.renderDynamicFields(entity.ch) }}
-                    <a href="{{ path('magecore_testtastoro.issue_view', {'id': entity.reporter.id}) }}">
-                        {{ entity.reporter|oro_format_name|escape }}
-                    </a>
+                    {{ 'pum' }}
                 {% endif %}
 
             </div>

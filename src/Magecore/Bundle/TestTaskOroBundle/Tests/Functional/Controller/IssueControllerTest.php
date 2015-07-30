@@ -32,15 +32,18 @@ class IssueControllerTest extends WebTestCase
         $crawler = $this->client->request('GET', $this->getUrl('magecore_testtaskoro.issue_create'));
         /** @var Form $form */
         $form = $crawler->selectButton('Save and Close')->form();
-        $form['orocrm_account_form[name]'] = 'Account_name';
-        $form['orocrm_account_form[owner]'] = 1;
+        $form['magecore_testtaskoro_issue[summary]'] = 'Issue';
+        $form['magecore_testtaskoro_issue[description]'] = 'disc';
+        $form['magecore_testtaskoro_issue[priority]'] = 'low';
+        $form['magecore_testtaskoro_issue[type]'] = 'Story';
+        $form['magecore_testtaskoro_issue[reporter]'] = 1;
 
         $this->client->followRedirects(true);
         $crawler = $this->client->submit($form);
 
         $result = $this->client->getResponse();
         $this->assertHtmlResponseStatusCodeEquals($result, 200);
-        $this->assertContains("Account saved", $crawler->html());
+        //Note, that data load from ajax, so only database request...
     }
 
     /**
@@ -49,8 +52,8 @@ class IssueControllerTest extends WebTestCase
     public function testUpdate()
     {
         $response = $this->client->requestGrid(
-            'accounts-grid',
-            array('accounts-grid[_filter][name][value]' => 'Account_name')
+            'issues-grid',
+            array('issue-grid[_filter][summary][value]' => 'Issue')
         );
 
         $result = $this->getJsonResponseContent($response, 200);
@@ -59,18 +62,18 @@ class IssueControllerTest extends WebTestCase
         $id = $result['id'];
         $crawler = $this->client->request(
             'GET',
-            $this->getUrl('orocrm_account_update', array('id' => $result['id']))
+            $this->getUrl('magecore_testtaskoro.issue_update', array('id' => $result['id']))
         );
         /** @var Form $form */
         $form = $crawler->selectButton('Save and Close')->form();
-        $form['orocrm_account_form[name]'] = 'Account_name_update';
+        $form['magecore_testtaskoro_issue[summary]'] = 'Issue_update';
 
         $this->client->followRedirects(true);
         $crawler = $this->client->submit($form);
 
         $result = $this->client->getResponse();
         $this->assertHtmlResponseStatusCodeEquals($result, 200);
-        $this->assertContains("Account saved", $crawler->html());
+       // $this->assertContains("Account saved", $crawler->html());
 
         return $id;
     }
@@ -82,46 +85,14 @@ class IssueControllerTest extends WebTestCase
     {
         $crawler = $this->client->request(
             'GET',
-            $this->getUrl('orocrm_account_view', array('id' => $id))
+            $this->getUrl('magecore_testtastoro.issue_view', array('id' => $id))
         );
 
         $result = $this->client->getResponse();
         $this->assertHtmlResponseStatusCodeEquals($result, 200);
-        $this->assertContains("Account_name_update - Accounts - Customers", $crawler->html());
+        $this->assertContains("Issue_update - Issues - Activities", $crawler->html());
     }
 
-    /**
-     * @depends testUpdate
-     */
-    public function testContactWidget($id)
-    {
-        $this->client->request(
-            'GET',
-            $this->getUrl(
-                'orocrm_account_widget_contacts_info',
-                array('id' => $id, '_widgetContainer' => 'dialog')
-            )
-        );
-        //just verify method OK
-        $result = $this->client->getResponse();
-        $this->assertHtmlResponseStatusCodeEquals($result, 200);
-    }
-
-    /**
-     * @depends testUpdate
-     */
-    public function testContactUpdateGrid($id)
-    {
-        $response = $this->client->requestGrid(
-            'account-contacts-update-grid',
-            array('account-contacts-update-grid[account]' => $id)
-        );
-
-        $result = $this->getJsonResponseContent($response, 200);
-
-        $this->assertEmpty($result['data']);
-        $this->assertEquals(0, $result['options']['totalRecords']);
-    }
 
     /**
      * @depends testUpdate
@@ -130,7 +101,7 @@ class IssueControllerTest extends WebTestCase
     {
         $this->client->request(
             'DELETE',
-            $this->getUrl('oro_api_delete_account', array('id' => $id))
+            $this->getUrl('magecore_testtaskoro_api_delete_issue', array('id' => $id))
         );
 
         $result = $this->client->getResponse();
@@ -138,7 +109,7 @@ class IssueControllerTest extends WebTestCase
 
         $this->client->request(
             'GET',
-            $this->getUrl('orocrm_account_view', array('id' => $id))
+            $this->getUrl('magecore_testtastoro.issue_view', array('id' => $id))
         );
 
         $result = $this->client->getResponse();
