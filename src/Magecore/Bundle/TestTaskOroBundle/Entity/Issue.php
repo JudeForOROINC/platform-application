@@ -67,7 +67,7 @@ use Oro\Bundle\UserBundle\Model\ExtendUser;
  * )
  * @JMS\ExclusionPolicy("ALL")
  */
-class Issue extends ExtendIssue
+class Issue extends ExtendIssue implements Taggable
 {
     const ROLE_DEFAULT = 'ROLE_USER';
     const ROLE_ADMINISTRATOR = 'ROLE_ADMINISTRATOR';
@@ -248,25 +248,23 @@ class Issue extends ExtendIssue
      */
     protected $organization;
 
+    /**
+     * @var ArrayCollection $tags
+     */
+    protected $tags;
 
     const ISSUE_TYPE_STORY = 'Story';
     const ISSUE_TYPE_BUG = 'Bug';
     const ISSUE_TYPE_TASK = 'Task';
     const ISSUE_TYPE_SUBTASK = 'Subtask';
 
-
-
-//    /**
-//     * @ORM\ManyToMany(targetEntity="User", inversedBy="issues")
-//     * @ORM\JoinTable(name="magecore_testtask_issue_to_users"),
-//     */
-//    protected $collaborators;
-
-//    /**
-//     * @ORM\OneToMany(targetEntity="Activity", mappedBy="issue")
-//     */
-//    protected $activities;
-
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -278,7 +276,33 @@ class Issue extends ExtendIssue
         return $this->id;
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getTaggableId()
+    {
+        return $this->getId();
+    }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getTags()
+    {
+        $this->tags = $this->tags ?: new ArrayCollection();
+
+        return $this->tags;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+
+        return $this;
+    }
 
     /**
      * Set code
@@ -424,6 +448,7 @@ class Issue extends ExtendIssue
         return (bool)($this->getType()==self::ISSUE_TYPE_SUBTASK);
     }
 
+
     /**
      * @return array
      */
@@ -435,7 +460,6 @@ class Issue extends ExtendIssue
             self::ISSUE_TYPE_STORY,
         );
     }
-
 
     /**
      * Set priority
@@ -459,30 +483,6 @@ class Issue extends ExtendIssue
     {
         return $this->priority;
     }
-
-//    /**
-//     * Set status
-//     *
-//     * @param integer $status
-//     * @return Issue
-//     */
-//    public function setStatus($status)
-//    {
-//        $this->status = $status;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * Get status
-//     *
-//     * @return integer
-//     */
-//    public function getStatus()
-//    {
-//        return $this->status;
-//    }
-
 
     /**
      * @param \DateTime $createdAt
@@ -514,14 +514,6 @@ class Issue extends ExtendIssue
     public function getUpdatedAt()
     {
         return $this->updatedAt;
-    }
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
