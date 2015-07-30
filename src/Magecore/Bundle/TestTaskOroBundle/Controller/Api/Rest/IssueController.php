@@ -92,5 +92,20 @@ class IssueController extends RestController
         return $this->handleGetRequest($id);
     }
 
+    /**
+     * @param int $id Issue item id
+     *
+     * @ApiDoc(
+     *      description="Update issue",
+     *      resource=true
+     * )
+     * @AclAncestor("magecore_testtaskoro.issue_updete")
+     * @return Response
+     */
+    public function putAction($id)
+    {
+        return $this->handleUpdateRequest($id);
+    }
+
 
 }

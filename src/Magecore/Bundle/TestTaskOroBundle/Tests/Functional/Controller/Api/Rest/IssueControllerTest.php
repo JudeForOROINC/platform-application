@@ -15,6 +15,9 @@ class IssueControllerTest extends WebTestCase
         $this->initClient(array(), $this->generateWsseAuthHeader());
     }
 
+    /**
+     * @return array
+     */
     public function testCreate()
     {
         $request = array(
@@ -49,58 +52,61 @@ class IssueControllerTest extends WebTestCase
     {
         $this->client->request(
             'GET',
-            $this->getUrl('magecore_testtaskoro_get_post_issue', array('id' => $request['id']))
+            $this->getUrl('magecore_testtaskoro_api_get_issue', array('id' => $request['id']))
         );
 
         $result = $this->getJsonResponseContent($this->client->getResponse(), 200);
 
         $this->assertEquals($request['issue']['code'], $result['code']);
     }
-//
-//    /**
-//     * @param array $request
-//     * @depends testCreate
-//     * @depends testGet
-//     */
-//    public function testUpdate(array $request)
-//    {
-//        $request['account']['name'] .= "_Updated";
-//        $this->client->request(
-//            'PUT',
-//            $this->getUrl('oro_api_put_account', array('id' => $request['id'])),
-//            $request
-//        );
-//        $result = $this->client->getResponse();
-//
-//        $this->assertEmptyResponseStatusCodeEquals($result, 204);
-//
-//        $this->client->request(
-//            'GET',
-//            $this->getUrl('oro_api_get_account', array('id' => $request['id']))
-//        );
-//
-//        $result = $this->getJsonResponseContent($this->client->getResponse(), 200);
-//
-//        $this->assertEquals(
-//            $request['account']['name'],
-//            $result['name']
-//        );
-//    }
-//
-//    /**
-//     * @param array $request
-//     * @depends testCreate
-//     */
-//    public function testDelete(array $request)
-//    {
-//        $this->client->request(
-//            'DELETE',
-//            $this->getUrl('oro_api_delete_account', array('id' => $request['id']))
-//        );
-//        $result = $this->client->getResponse();
-//        $this->assertEmptyResponseStatusCodeEquals($result, 204);
-//        $this->client->request('GET', $this->getUrl('oro_api_get_account', array('id' => $request['id'])));
-//        $result = $this->client->getResponse();
-//        $this->assertJsonResponseStatusCodeEquals($result, 404);
-//    }
+
+    /**
+     * @param array $request
+     * @depends testCreate
+     * @depends testGet
+     */
+    public function testUpdate(array $request)
+    {
+        $request['issue']['summary'] .= "_Updated";
+        $this->client->request(
+            'PUT',
+            $this->getUrl('magecore_testtaskoro_api_put_issue', array('id' => $request['id'])),
+            $request
+        );
+        $result = $this->client->getResponse();
+
+        $this->assertEmptyResponseStatusCodeEquals($result, 204);
+
+        $this->client->request(
+            'GET',
+            $this->getUrl('magecore_testtaskoro_api_get_issue', array('id' => $request['id']))
+        );
+
+        $result = $this->getJsonResponseContent($this->client->getResponse(), 200);
+
+        $this->assertEquals(
+            $request['issue']['summary'],
+            $result['summary']
+        );
+    }
+
+    /**
+     * @param array $request
+     * @depends testCreate
+     */
+    public function testDelete(array $request)
+    {
+        $this->client->request(
+            'DELETE',
+            $this->getUrl('magecore_testtaskoro_api_delete_issue', array('id' => $request['id']))
+        );
+        $result = $this->client->getResponse();
+        $this->assertEmptyResponseStatusCodeEquals($result, 204);
+        $this->client->request('GET', $this->getUrl(
+            'magecore_testtaskoro_api_get_issue',
+            array('id' => $request['id'])
+        ));
+        $result = $this->client->getResponse();
+        $this->assertJsonResponseStatusCodeEquals($result, 404);
+    }
 }
