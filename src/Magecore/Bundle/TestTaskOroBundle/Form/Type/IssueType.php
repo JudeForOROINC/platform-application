@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jude
- * Date: 23.07.15
- * Time: 14:10
- */
-
 
 namespace Magecore\Bundle\TestTaskOroBundle\Form\Type;
 
@@ -25,8 +18,8 @@ class IssueType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('summary', null, array('label'=>'field.summary.issue'))
-            ->add('description', null, array('label'=>'field.description'))
+            ->add('summary', null)
+            ->add('description', null)
         ;
         $builder
             ->add(
@@ -34,7 +27,6 @@ class IssueType extends AbstractType
                 'oro_user_organization_acl_select',
                 [
                     'required'      => false,
-                    'label'         => 'field.assignee',
                 ]
             );
 
@@ -60,7 +52,6 @@ class IssueType extends AbstractType
                     $arr,
 
                 'required' => true,
-                'label'=>'field.type',
                 'empty_value' => false,
                 'empty_data'=>null,
             ));
@@ -70,7 +61,6 @@ class IssueType extends AbstractType
             'priority',
             'entity',
             [
-            'label'         => 'field.priority.label',
             'class'         => 'MagecoreTestTaskOroBundle:Priority',
             'query_builder' => function (EntityRepository $entityRepository) {
                 return $entityRepository->createQueryBuilder('priority')
@@ -82,7 +72,6 @@ class IssueType extends AbstractType
             'resolution',
             'entity',
             [
-                'label'        => 'field.resolution.label',
                 'required'     => false,
                 'class'         => 'MagecoreTestTaskOroBundle:Resolution',
             ]

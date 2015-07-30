@@ -54,7 +54,8 @@ class IssueController extends Controller
     }
 
     /**
-     * @Route("/{id}/create", name="magecore_testtaskoro.issue_subtask_create", requirements={"id":"\d+"}, defaults={"id":0})
+     * @Route("/{id}/create",
+     * name="magecore_testtaskoro.issue_subtask_create", requirements={"id":"\d+"}, defaults={"id":0})
      * @Template("MagecoreTestTaskOroBundle:Issue:update.html.twig")
      * @Acl(
      *     id="magecore_testtaskoro.issue_subtask_create",
