@@ -57,7 +57,7 @@ class IssueControllerTest extends WebTestCase
 
         $result = $this->getJsonResponseContent($this->client->getResponse(), 200);
 
-        $this->assertEquals($request['issue']['code'], $result['code']);
+        $this->assertEquals($request['issue']['summary'], $result['summary']);
     }
 
     /**

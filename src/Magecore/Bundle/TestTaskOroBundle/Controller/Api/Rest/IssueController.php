@@ -47,6 +47,9 @@ class IssueController extends RestController
         return $this->handleDeleteRequest($id);
     }
 
+    /**
+     * @return \Magecore\Bundle\TestTaskOroBundle\Form\Type\IssueApiType
+     */
     public function getForm()
     {
         return $this->get('magecore_testtaskoro.form.type.issue.api');
@@ -60,6 +63,9 @@ class IssueController extends RestController
         return $this->get('magecore_testtaskoro.form.handler.issue.api');
     }
 
+    /**
+     * @return \Oro\Bundle\SoapBundle\Entity\Manager\ApiEntityManager
+     */
     public function getManager()
     {
         return $this->get('magecore_testtaskoro.issue_manager.api');
