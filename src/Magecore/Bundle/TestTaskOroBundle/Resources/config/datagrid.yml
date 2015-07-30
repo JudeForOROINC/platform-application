@@ -121,3 +121,17 @@ datagrid:
                 label:         oro.grid.action.delete
                 icon:          trash
                 link:          delete_link
+    issue-subtask-grid:
+        source:
+            acl_resource: testtaskoro.issue_view
+            type: orm
+            query:
+                select:
+                    - v.id
+                    - v.summary
+                    - v.type
+                    - v.code
+                from:
+                    - { table: MagecoreTestTaskOroBundle:Issue, alias: v }
+                where:
+                    - v.parentIssue = :parentId

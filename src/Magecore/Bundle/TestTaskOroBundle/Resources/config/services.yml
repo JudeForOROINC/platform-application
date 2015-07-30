@@ -5,3 +5,10 @@ services:
         arguments:
             - Magecore\Bundle\TestTaskOroBundle\Entity\Issue
             - "@doctrine.orm.entity_manager"
+    magecore_testtaskoro.event_listener.issue_subtask_grid_parameter_listener:
+        class: %oro_datagrid.event_listener.base_orm_relation.class%
+        arguments:
+            - parentId
+            - false
+        tags:
+            - { name: kernel.event_listener, event: oro_datagrid.datagrid.build.after.issue-subtask-grid, method: onBuildAfter }

@@ -77,12 +77,16 @@
                 {%- endif -%}
                 {%- endset -%}
                 {{ UI.renderHtmlProperty('magecore.testtaskoro.issue.assigned_to.label'|trans, assigneeData) }}
-                {% if entity.subtask %}
-                    <a href="{{ path('magecore_testtastoro.issue_view', {'id': entity.reporter.id}) }}">
-                        {{ entity.reporter|oro_format_name|escape }}
-                    </a>
-                {% endif %}
 
+                {% if entity.subtask %}
+                {%- set parentData -%}
+                    <a href="{{ path('magecore_testtastoro.issue_view', {'id': entity.parentIssue.id}) }}">
+                        {{ entity.parentIssue|escape }}
+                    </a>
+                {%- endset -%}
+
+                {{ UI.renderHtmlProperty('magecore.testtaskoro.issue.parent_issue.label'|trans, parentData) }}
+                {% endif %}
                 {% if entity.story %}
                     {{ 'pum' }}
                 {% endif %}
