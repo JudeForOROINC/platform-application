@@ -8,5 +8,7 @@ Magecore\Bundle\TestTaskOroBundle\Entity\Issue:
             - NotBlank: ~
         priority:
             - NotBlank: ~
+        description:
+            - NotBlank: ~
         type:
             - NotBlank: ~
