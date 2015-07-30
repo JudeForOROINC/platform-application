@@ -5,5 +5,5 @@ placeholders:
 
 items:
     magecore_testtaskoro_issue_grid:
-        template: MagecoreTesttaskOroBundle:Issue:Datagrid:user.html.twig
+        template: MagecoreTestTaskOroBundle:Issue:user.html.twig
         applicable: @oro_ui.placeholder.filter->isInstanceOf($entity$, %oro_user.entity.class%)
