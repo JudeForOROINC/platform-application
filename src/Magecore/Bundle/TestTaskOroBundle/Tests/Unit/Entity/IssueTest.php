@@ -109,7 +109,7 @@ class IssueTest extends \PHPUnit_Framework_TestCase
             ->getMock();
         $testAssignee->expects($this->once())->method('getName')->will($this->returnValue('low'));
         $testAssignee->expects($this->once())->method('getLabel')->will($this->returnValue('Low label'));
-       // $organization = $this->getMock('Oro\Bundle\OrganizationBundle\Entity\Organization');
+        $organization = $this->getMock('Oro\Bundle\OrganizationBundle\Entity\Organization');
         return array(
             array('summary', 'Test subject'),
             array('code', 'ISS-2'),
@@ -121,6 +121,8 @@ class IssueTest extends \PHPUnit_Framework_TestCase
             array('reporter', $this->getMock('Oro\Bundle\UserBundle\Entity\User')),
             array('createdAt', new \DateTime()),
             array('updatedAt', new \DateTime()),
+            array('parentIssue', $this->getMock('Magecore\Bundle\TestTaskOroBundle\Entity\Issue')),
+            array('organization', $organization),
         );
     }
     public function testPrePersist()
@@ -168,5 +170,67 @@ class IssueTest extends \PHPUnit_Framework_TestCase
         $entity = $this->issue;
         $entity->setCode('ISS-12');
         $this->assertEquals($entity->getCode(), (string)$entity);
+    }
+
+    public function testIsStory()
+    {
+        $entity = $this->issue;
+        $entity->setType('Story');
+        $this->assertTrue($entity->isStory());
+        $entity->setType('Bug');
+        $this->assertFalse($entity->isStory());
+    }
+
+    public function testIsSubtask()
+    {
+        $entity = $this->issue;
+        $entity->setType($entity::ISSUE_TYPE_SUBTASK);
+        $this->assertTrue($entity->isSubtask());
+        $entity->setType('Bug');
+        $this->assertFalse($entity->isSubtask());
+    }
+
+    public function testParentTypes()
+    {
+        $entity = $this->issue;
+
+        $this->assertEquals([
+            $entity::ISSUE_TYPE_BUG,
+            $entity::ISSUE_TYPE_TASK,
+            $entity::ISSUE_TYPE_STORY,
+        ], $entity->getParentTypes());
+    }
+    public function testOwner()
+    {
+        $entity = $this->issue;
+        $reporter = $this->getMock('Oro\Bundle\UserBundle\Entity\User');
+        $entity->setReporter($reporter);
+        $this->assertEquals($reporter, $entity->getOwner());
+    }
+    public function testAddchild()
+    {
+        $entity = $this->issue;
+        $child = new Issue();
+        $this->setId(5);
+
+        $this->assertEmpty($entity->getChildren()->toArray());
+
+        $entity->addChild($child);
+        $actualList = $entity->getChildren()->toArray();
+        $this->assertCount(1, $actualList);
+        $this->assertEquals($child, current($actualList));
+    }
+
+    public function testRemoveContact()
+    {
+        $entity = $this->issue;
+        $child = new Issue();
+        $this->setId(5);
+
+        $entity->addChild($child);
+        $this->assertCount(1, $entity->getChildren()->toArray());
+
+        $entity->removeChild($child);
+        $this->assertEmpty($entity->getChildren()->toArray());
     }
 }
