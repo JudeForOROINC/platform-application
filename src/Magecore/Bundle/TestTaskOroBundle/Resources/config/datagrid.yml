@@ -141,3 +141,14 @@ datagrid:
                 label: '# code'
             summary:
                 label: Summary
+    issue-assigned-grid:
+        extends: issues-grid
+        source:
+            query:
+                where:
+                    and:
+                        - (assignedTo.id = :id OR owner.id = :id)
+            bind_parameters:
+                - id
+        options:
+            entity_pagination: false
