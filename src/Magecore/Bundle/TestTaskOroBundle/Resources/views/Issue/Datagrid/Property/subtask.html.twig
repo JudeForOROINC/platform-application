@@ -1,0 +1,8 @@
+{% set issueid = record.getValue('id') %}
+{% if issueid %}
+    <a href="{{ path('magecore_testtastoro.issue_view', {id: issueid}) }}">
+        {{ value }}
+    </a>
+{% else %}
+    {{ value }}
+{% endif %}

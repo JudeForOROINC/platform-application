@@ -139,6 +139,9 @@ datagrid:
         columns:
             code:
                 label: '# code'
+                type:          twig
+                frontend_type: html
+                template:      MagecoreTestTaskOroBundle:Issue:Datagrid/Property/subtask.html.twig
             summary:
                 label: Summary
     issue-assigned-grid:

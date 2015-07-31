@@ -91,8 +91,16 @@
                 {% endif %}
 
                 {% if entity.story %}
-                    <div class="row-fluid">
-                        {{ dataGrid.renderGrid('issue-subtask-grid', {parentId: entity.id}) }}
+                    <div class="responsive-cell">
+                        <div class="box-type1">
+                            <div class="title">
+                                <span class="widget-title">{{ "magecore.testtaskoro.issue.children.label"|trans }}</span>
+                            </div>
+
+                            <div class="row-fluid">
+                                {{ dataGrid.renderGrid('issue-subtask-grid', {parentId: entity.id}) }}
+                            </div>
+                        </div>
                     </div>
 
                 {% endif %}
