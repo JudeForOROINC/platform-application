@@ -7,10 +7,9 @@
  */
 
 
-namespace Magecore\Bundle\TestTaskOroBundle\Migrations\Data\ORM;
+namespace Magecore\Bundle\TestTaskOroBundle\Migrations\Data\Demo\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
 use Magecore\Bundle\TestTaskOroBundle\Entity\Issue;
@@ -19,18 +18,8 @@ use Magecore\Bundle\TestTaskOroBundle\Entity\Priority;
 use Oro\Bundle\TranslationBundle\DataFixtures\AbstractTranslatableEntityFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 
-class LoadIssueData extends AbstractFixture implements DependentFixtureInterface
+class LoadIssueData extends AbstractFixture
 {
-    const CASE_PRIORITY_PREFIX = 'case_priority';
-
-    public function getDependencies()
-    {
-        return [
-            'Magecore\Bundle\TestTaskOroBundle\Migrations\Data\ORM\LoadPriorityData',
-            'Magecore\Bundle\TestTaskOroBundle\Migrations\Data\ORM\LoadResolutionData',
-            'Oro\Bundle\UserBundle\Migrations\Data\ORM\LoadAdminUserData',
-        ];
-    }
 
     const ISSUE_COUNT = 20;
 
@@ -69,7 +58,6 @@ class LoadIssueData extends AbstractFixture implements DependentFixtureInterface
         $assignee = $users;
         $assignee[]=null;
 
-        $issueRepository = $manager->getRepository('MagecoreTestTaskOroBundle:Issue');
         $story = null;
         for ($i=0; $i< $this::ISSUE_COUNT; $i++) {
             $issue = new Issue();
