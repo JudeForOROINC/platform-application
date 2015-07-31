@@ -18,3 +18,19 @@ magecore:
             reporter.label:             Reporter
             assigned_to.label:          Assignee
             parent_issue.label:         Parrent issue
+            children.label:             Subtasks
+            created_at.label:           Created
+            id.label:                   Issue id
+            organization.label:         Organization
+            updated_at.label:           Updated
+        resolution:
+            entity_label:               Resolution
+            entity_plural_label:        Resolutions
+            id.label:                   Resolution id
+            value.label:                Value
+        priority:
+            entity_label:               Priority
+            entity_plural_label:        Priorities
+            name.label:                 Priority id
+            label.label:                Label
+            order.label:                Order sorting

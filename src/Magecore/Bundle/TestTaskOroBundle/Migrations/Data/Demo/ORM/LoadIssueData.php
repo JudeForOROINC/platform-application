@@ -61,13 +61,14 @@ class LoadIssueData extends AbstractFixture
         $assignee[]=null;
 
 
+
         $story = null;
         for ($i=0; $i< $this::ISSUE_COUNT; $i++) {
             $issue = new Issue();
 
             $issue->setType($issue->getParentTypes()[array_rand($issue->getParentTypes())]);
             if ($issue->isStory()) {
-                if($story) {
+                if ($story) {
                     $issue->setType($issue::ISSUE_TYPE_SUBTASK);
                     $issue->getParentIssue($story);
                 } else {
@@ -78,6 +79,7 @@ class LoadIssueData extends AbstractFixture
             $issue->setDescription($this->issueDescription[array_rand($this->issueDescription)]);
             $issue->setPriority($priorities[array_rand($priorities)]);
             $issue->setReporter($users[array_rand($users)]);
+            $issue->setOrganization($issue->getReporter()->getOrganization());
             $issue->setResolution($resolutions[array_rand($resolutions)]);
             $issue->getAssignedTo($assignee[array_rand($assignee)]);
 
