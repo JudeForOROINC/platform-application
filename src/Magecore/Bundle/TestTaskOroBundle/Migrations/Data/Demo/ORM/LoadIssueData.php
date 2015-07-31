@@ -46,10 +46,12 @@ class LoadIssueData extends AbstractFixture
         if (empty($priorities)) {
             return;
         }
+
         $resolutions = $manager->getRepository('MagecoreTestTaskOroBundle:Resolution')->findAll();
         if (empty($resolutions)) {
             return;
         }
+
         $resolutions[]=null;
         $users = $manager->getRepository('OroUserBundle:User')->findAll();
         if (empty($users)) {
@@ -58,13 +60,19 @@ class LoadIssueData extends AbstractFixture
         $assignee = $users;
         $assignee[]=null;
 
+
         $story = null;
         for ($i=0; $i< $this::ISSUE_COUNT; $i++) {
             $issue = new Issue();
+
             $issue->setType($issue->getParentTypes()[array_rand($issue->getParentTypes())]);
-            if ($story) {
-                $issue->setType($issue::ISSUE_TYPE_SUBTASK);
-                $issue->getParentIssue($story);
+            if ($issue->isStory()) {
+                if($story) {
+                    $issue->setType($issue::ISSUE_TYPE_SUBTASK);
+                    $issue->getParentIssue($story);
+                } else {
+                    $story = $issue;
+                }
             }
             $issue->setSummary($this->issueSummary[array_rand($this->issueSummary)]);
             $issue->setDescription($this->issueDescription[array_rand($this->issueDescription)]);
@@ -73,12 +81,20 @@ class LoadIssueData extends AbstractFixture
             $issue->setResolution($resolutions[array_rand($resolutions)]);
             $issue->getAssignedTo($assignee[array_rand($assignee)]);
 
+
             $manager->persist($issue);
+
+            $manager->flush();//too many issues fails;
+
         }
-        $manager->flush();
     }
+
+    /**
+     * @param ObjectManager $manager
+     */
     public function load(ObjectManager $manager)
     {
+        //var_dump(get_class($manager));die;
         $this->loadEntities($manager);
     }
 }
