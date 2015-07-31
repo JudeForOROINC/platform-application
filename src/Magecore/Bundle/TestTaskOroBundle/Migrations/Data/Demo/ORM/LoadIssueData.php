@@ -57,6 +57,11 @@ class LoadIssueData extends AbstractFixture
         if (empty($users)) {
             return;
         }
+        $organization = $manager->getRepository('OroOrganizationBundle:Organization')->findAll();
+        if (empty($organization)) {
+            return;
+        }
+
         $assignee = $users;
         $assignee[]=null;
 
@@ -79,11 +84,9 @@ class LoadIssueData extends AbstractFixture
             $issue->setDescription($this->issueDescription[array_rand($this->issueDescription)]);
             $issue->setPriority($priorities[array_rand($priorities)]);
             $issue->setReporter($users[array_rand($users)]);
-            $issue->setOrganization($issue->getReporter()->getOrganization());
+            $issue->setOrganization($organization[0]);
             $issue->setResolution($resolutions[array_rand($resolutions)]);
             $issue->getAssignedTo($assignee[array_rand($assignee)]);
-
-
             $manager->persist($issue);
 
             $manager->flush();//too many issues fails;
