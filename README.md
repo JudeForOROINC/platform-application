@@ -111,3 +111,21 @@ Github OAuth token should be configured in package manager settings
 [3]:  http://dev.mysql.com/doc/refman/5.6/en/optimizing-innodb-diskio.html
 [4]:  https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager
 [5]:  http://symfony.com/doc/2.3/cookbook/configuration/web_server_configuration.html
+
+upd:
+## install by ubuntu
+
+first ypu need to clone this branch by 
+```
+git clone -b my_tmp-1_7_4 https://github.com/JudeForOROINC/platform-application.git oro_tmp
+```
+or you may use other folder name except oro_tmp .
+
+second you need to go in folder like 
+```
+cd oro_tmp
+```
+and run composer to update.
+see composer instruction how to install it and run for update.
+
+third  run oro:install comand = learn more from oro_crm documentation/
