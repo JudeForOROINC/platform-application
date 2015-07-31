@@ -128,4 +128,3 @@ class IssueController extends Controller
         return array('entity' => $issue);
     }
 }
-
