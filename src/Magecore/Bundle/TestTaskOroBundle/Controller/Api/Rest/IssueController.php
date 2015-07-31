@@ -112,6 +112,4 @@ class IssueController extends RestController
     {
         return $this->handleUpdateRequest($id);
     }
-
-
 }
