@@ -127,6 +127,4 @@ class Priority
     {
         return (string)$this->label;
     }
-
-
 }

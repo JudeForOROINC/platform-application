@@ -58,12 +58,11 @@ class PriorityTest extends \PHPUnit_Framework_TestCase
             array('label', 'Low priority'),
         );
     }
+
     public function testToString()
     {
         $entity = $this->entity;
         $entity->setLabel('Low priority');
         $this->assertEquals($entity->getLabel(), (string)$entity);
     }
-
-
 }
