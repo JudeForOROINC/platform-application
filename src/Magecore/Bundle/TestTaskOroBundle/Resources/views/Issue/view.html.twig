@@ -102,8 +102,8 @@
                             </div>
                         </div>
                     </div>
-
                 {% endif %}
+
                 {% if resource_granted('oro_tag_view') %}
                     {{ UI.renderHtmlProperty('oro.tag.entity_plural_label'|trans, tag.renderView(entity)) }}
                 {% endif %}
