@@ -26,8 +26,8 @@ class LoadIssueData extends AbstractFixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [
-            'Magecore\Bundle\TestTaskOroBundle\Migrations\Data\Demo\ORM\LoadPriorityData',
-            'Magecore\Bundle\TestTaskOroBundle\Migrations\Data\Demo\ORM\LoadResolutionData',
+            'Magecore\Bundle\TestTaskOroBundle\Migrations\Data\ORM\LoadPriorityData',
+            'Magecore\Bundle\TestTaskOroBundle\Migrations\Data\ORM\LoadResolutionData',
             'Oro\Bundle\UserBundle\Migrations\Data\ORM\LoadAdminUserData',
         ];
     }

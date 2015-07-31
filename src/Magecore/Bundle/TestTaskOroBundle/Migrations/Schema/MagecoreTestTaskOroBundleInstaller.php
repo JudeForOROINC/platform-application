@@ -5,8 +5,6 @@ namespace Magecore\Bundle\TestTaskOroBundle\Migrations\Schema;
 use Doctrine\DBAL\Schema\Schema;
 use Oro\Bundle\MigrationBundle\Migration\Installation;
 use Oro\Bundle\MigrationBundle\Migration\QueryBag;
-use Oro\Bundle\MigrationBundle\Migration\Migration;
-use Oro\Bundle\NoteBundle\Migration\Extension\NoteExtension;
 
 /**
  * @SuppressWarnings(PHPMD.TooManyMethods)
@@ -34,10 +32,7 @@ class MagecoreTestTaskOroBundleInstaller implements Installation
 
         /** Foreign keys generation **/
         $this->addMagecoreTesttaskoroIssueForeignKeys($schema);
-
-
     }
-
 
     /**
      * Create magecore_testtask_resolution table
@@ -61,12 +56,12 @@ class MagecoreTestTaskOroBundleInstaller implements Installation
     {
         $table = $schema->createTable('magecore_testtaskoro_issue');
         $table->addColumn('id', 'integer', ['autoincrement' => true]);
-        $table->addColumn('parent_issue_id', 'integer', ['notnull' => false]);
+        $table->addColumn('assigned_to_id', 'integer', ['notnull' => false]);
         $table->addColumn('resolution_id', 'integer', ['notnull' => false]);
         $table->addColumn('organization_id', 'integer', ['notnull' => false]);
         $table->addColumn('priority_name', 'string', ['notnull' => false, 'length' => 16]);
+        $table->addColumn('parent_issue_id', 'integer', ['notnull' => false]);
         $table->addColumn('reporter_id', 'integer', ['notnull' => false]);
-        $table->addColumn('assigned_to_id', 'integer', ['notnull' => false]);
         $table->addColumn('summary', 'string', ['length' => 255]);
         $table->addColumn('code', 'string', ['length' => 14]);
         $table->addColumn('description', 'text', []);
@@ -106,10 +101,10 @@ class MagecoreTestTaskOroBundleInstaller implements Installation
     {
         $table = $schema->getTable('magecore_testtaskoro_issue');
         $table->addForeignKeyConstraint(
-            $schema->getTable('magecore_testtaskoro_issue'),
-            ['parent_issue_id'],
+            $schema->getTable('oro_user'),
+            ['assigned_to_id'],
             ['id'],
-            ['onDelete' => 'CASCADE', 'onUpdate' => null]
+            ['onDelete' => 'SET NULL', 'onUpdate' => null]
         );
         $table->addForeignKeyConstraint(
             $schema->getTable('magecore_testtask_resolution'),
@@ -130,14 +125,14 @@ class MagecoreTestTaskOroBundleInstaller implements Installation
             ['onDelete' => 'SET NULL', 'onUpdate' => null]
         );
         $table->addForeignKeyConstraint(
-            $schema->getTable('oro_user'),
-            ['reporter_id'],
+            $schema->getTable('magecore_testtaskoro_issue'),
+            ['parent_issue_id'],
             ['id'],
-            ['onDelete' => 'SET NULL', 'onUpdate' => null]
+            ['onDelete' => 'CASCADE', 'onUpdate' => null]
         );
         $table->addForeignKeyConstraint(
             $schema->getTable('oro_user'),
-            ['assigned_to_id'],
+            ['reporter_id'],
             ['id'],
             ['onDelete' => 'SET NULL', 'onUpdate' => null]
         );
